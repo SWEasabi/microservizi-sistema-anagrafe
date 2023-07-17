@@ -19,19 +19,24 @@ import it.SWEasabi.management.services.LocalDatabaseConnectionService;
 
 public class Context 
 {
-    static AccessKeyService keys = new LocalAccessKeyService();
-    static DTOBuilderService dtobuilder = new LocalDTOBuilderService();
-    static DatabaseConnectionService dbservice = new LocalDatabaseConnectionService(dtobuilder);
-    static LampManager lampManager = new LampManager(dbservice);
-    static SensorManager sensorManager = new SensorManager(dbservice);
-    static AreaManager areaManager = new AreaManager(dbservice);
+    private AccessKeyService keys;
+    private DTOBuilderService dtobuilder;
+    private DatabaseConnectionService dbservice;
+    private LampManager lampManager;
+    private SensorManager sensorManager;
+    private AreaManager areaManager;
     
-    public static String listener(String json)
+    public Context(AccessKeyService keys, DTOBuilderService dtobuilder)
     {
-    	return null;
+    	this.keys=keys;
+    	this.dtobuilder=dtobuilder;
+    	this.dbservice = new LocalDatabaseConnectionService(dtobuilder);
+    	this.lampManager = new LampManager(this.dbservice);
+    	this.sensorManager = new SensorManager(this.dbservice);
+    	this.areaManager = new AreaManager(this.dbservice);
     }
     
-    public static String getLamp(int id)
+    public String getLamp(int id)
     {
     	Lamp lampada = lampManager.getLamp(id);
     	
@@ -46,7 +51,7 @@ public class Context
     	return res.toString();
     }
     
-    public static String getLampsInArea(int idArea)
+    public String getLampsInArea(int idArea)
     {
     	List<Lamp> lampade = lampManager.getLampsInArea(idArea);
     	String response = "";
@@ -66,17 +71,17 @@ public class Context
     	return response;
     }
     
-    public static boolean insertLamp(int idArea, double longitudine, double latitudine, int valore)
+    public boolean insertLamp(int idArea, double longitudine, double latitudine, int valore)
     {
     	return lampManager.insertLamp(idArea, longitudine, latitudine, valore);
     }
     
-    public static boolean deleteLamp(int id)
+    public boolean deleteLamp(int id)
     {
     	return lampManager.deleteLamp(id);
     }
     
-    public static String getSensor(int id)
+    public String getSensor(int id)
     {
     	Sensor sensore = sensorManager.getSensor(id);
     	
@@ -91,22 +96,22 @@ public class Context
     	return res.toString();
     }
     
-    public static boolean insertSensor(int idArea, double longitudine, double latitudine, int valore)
+    public boolean insertSensor(int idArea, double longitudine, double latitudine, int valore)
     {
     	return sensorManager.insertSensor(idArea, longitudine, latitudine, valore);
     }
     
-    public static boolean deleteSensor(int id)
+    public boolean deleteSensor(int id)
     {
     	return sensorManager.deleteSensor(id);
     }
     
-    public static boolean moveMeasurer(int idMis, int idArea)
+    public boolean moveMeasurer(int idMis, int idArea)
     {
     	return areaManager.moveMeasurer(idMis, idArea);
     }
     
-    public static String getArea(int id)
+    public String getArea(int id)
     {
     	Area area = areaManager.getArea(id);
     	
@@ -120,7 +125,7 @@ public class Context
     	return res.toString();
     }
     
-    public static String getAreaList()
+    public String getAreaList()
     {
     	List<Area> aree = areaManager.getAreaList();
     	String response = "";
@@ -139,17 +144,17 @@ public class Context
     	return response;
     }
     
-    public static boolean editAreaName(int id, String nome)
+    public boolean editAreaName(int id, String nome)
     {
     	return areaManager.editAreaName(id, nome);
     }
     
-    public static boolean insertArea(String nome, boolean auto, int inf, int sup)
+    public boolean insertArea(String nome, boolean auto, int inf, int sup)
     {
     	return areaManager.insertArea(nome, auto, inf, sup);
     }
     
-    public static boolean deleteArea (int id)
+    public boolean deleteArea (int id)
     {
     	return areaManager.deleteArea(id);
     }
