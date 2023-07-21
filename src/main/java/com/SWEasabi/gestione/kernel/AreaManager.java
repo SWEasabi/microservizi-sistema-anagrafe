@@ -1,0 +1,45 @@
+package com.SWEasabi.gestione.kernel;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.SWEasabi.gestione.entities.Area;
+import com.SWEasabi.gestione.entities.Misuratore;
+import com.SWEasabi.gestione.repositories.AreaRepository;
+import com.SWEasabi.gestione.repositories.MisuratoreRepository;
+import com.SWEasabi.gestione.services.JsonBuilderService;
+
+public class AreaManager {
+	
+	@Autowired
+	private AreaRepository areaRepo;
+	
+	@Autowired
+	private MisuratoreRepository measurerRepo;
+	
+	@Autowired
+	private JsonBuilderService jsonBuilder;
+
+	public String getArea(int id)
+	{
+		return areaRepo.findById((long) id).toString();
+	}
+	
+	public boolean deleteArea(int id)
+	{
+		return areaRepo.deleteById((long)id);
+	}
+	
+	public boolean saveArea(String nome, boolean autoMode, int lvlInf, int lvlSup)
+	{
+		return areaRepo.save(new Area(nome,autoMode,lvlInf,lvlSup)) == null ? false : true;
+	}
+	
+	public boolean moveMeasurer(int newAreaId, int misId, double newX, double newY)
+	{
+		Misuratore measurer = measurerRepo.findById((long)misId);
+		measurer.setIdArea(newAreaId);
+		measurer.setLongitudine(newX);
+		measurer.setLatitudine(newY);
+		return (measurerRepo.save(measurer)) == null ? false : true;
+	}
+}
