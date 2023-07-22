@@ -17,10 +17,12 @@ class JsonBuilderServiceTest {
 	@Autowired
 	JsonBuilderService jsonBuilder;
 
-	/*@Test
+	@Test
 	void buildLampJsonTest() {
-		Lampione lampione = new Lampione(1,10);
 		Misuratore misuratore = new Misuratore(1,"lampione",10.0,20.0);
+		Lampione lampione = new Lampione(10);
+		lampione.setMisuratore(misuratore);
+		misuratore.setLampione(lampione);
 		JsonObject json = new JsonObject();
 		json.addProperty("id", lampione.getId());
 		json.addProperty("idArea", misuratore.getIdArea());
@@ -35,19 +37,20 @@ class JsonBuilderServiceTest {
 	
 	@Test
 	void buildSensorJsonTest() {
-		Sensore sensore = new Sensore(1,10);
 		Misuratore misuratore = new Misuratore(1,"lampione",10.0,20.0);
+		Sensore sensore = new Sensore(10);
+		sensore.setMisuratore(misuratore);
+		misuratore.setSensore(sensore);
 		JsonObject json = new JsonObject();
 		json.addProperty("id", sensore.getId());
-		json.addProperty("idMisuratore", sensore.getIdMisuratore());
 		json.addProperty("idArea", misuratore.getIdArea());
 		json.addProperty("raggio", sensore.getRaggio());
 		json.addProperty("latitudine", misuratore.getLatitudine());
 		json.addProperty("longitudine", misuratore.getLongitudine());
 		
-		JsonObject testJson = jsonBuilder.buildSensorJson(sensore,misuratore);
+		JsonObject testJson = jsonBuilder.buildSensorJson(sensore);
 		
 		assertEquals(json,testJson);
 		}
-		*/
+		
 }
