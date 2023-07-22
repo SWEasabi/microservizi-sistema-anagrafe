@@ -29,43 +29,36 @@ public class LampManager {
 	
 	public JsonObject getLamp(int id)
 	{
-		Lampione lamp = lampRepo.findById((long)id);
-		Misuratore misuratore = measurerRepo.findById(lamp.getIdMisuratore());
-		return jsonBuilder.buildLampJson(lamp, misuratore);
+		Lampione lamp = lampRepo.findById(id);
+		
+		return jsonBuilder.buildLampJson(lamp);
 	}
 	
 	public List<JsonObject> getLamps()
 	{
-		List<Misuratore> misList = new ArrayList<Misuratore>();
-	    misList = measurerRepo.findByTipo("lampione");
-	    List<Lampione> lampList = new ArrayList<Lampione>();
-	    for(Misuratore m : misList)
-	    {
-	    	lampList.add(lampRepo.findByIdmisuratore((long)m.getId()));
-	    }
+	    List<Lampione> lampList = lampRepo.findAll();
 	    
 	    List<JsonObject> jsonList = new ArrayList<JsonObject>();
 	    for(int i=0;i<lampList.size();i++)
 	    {
-	    	jsonList.add(jsonBuilder.buildLampJson(lampList.get(i), misList.get(i)));
+	    	jsonList.add(jsonBuilder.buildLampJson(lampList.get(i)));
 	    }
 	    return jsonList;
 	}
 	
 	public List<JsonObject> getLampsInArea(int idArea)
 	{
-		List<Misuratore> misList = new ArrayList<Misuratore>();
-	    misList = measurerRepo.findByTipoAndIdarea("lampione",(long)idArea);
+		List<Misuratore> misList = measurerRepo.findByTipoAndIdarea("lampione",(long)idArea);
 	    List<Lampione> lampList = new ArrayList<Lampione>();
 	    for(Misuratore m : misList)
 	    {
-	    	lampList.add(lampRepo.findByIdmisuratore((long)m.getId()));
+	    	lampList.add(lampRepo.findById((long)m.getId()));
 	    }
 	    
 	    List<JsonObject> jsonList = new ArrayList<JsonObject>();
 	    for(int i=0;i<lampList.size();i++)
 	    {
-	    	jsonList.add(jsonBuilder.buildLampJson(lampList.get(i), misList.get(i)));
+	    	jsonList.add(jsonBuilder.buildLampJson(lampList.get(i)));
 	    }
 	    return jsonList;
 	}
@@ -74,7 +67,9 @@ public class LampManager {
 	public boolean addLamp(int idArea, double latitudine, double longitudine, String tipo, int voltaggio)
 	{
 		Misuratore mis = new Misuratore((long)idArea,tipo,latitudine,longitudine);
-		Lampione lamp = new Lampione((long)12,voltaggio);
+		Lampione lamp = new Lampione(voltaggio);
+		mis.setLampione(lamp);
+		lamp.setMisuratore(mis);
 		Misuratore resMis = measurerRepo.save(mis);
 		Lampione resLamp = lampRepo.save(lamp);
 		return (resMis == null && resLamp == null) ? false : true;
@@ -83,8 +78,14 @@ public class LampManager {
 	@Transactional
 	public boolean deleteLamp(int id)
 	{
-		Lampione lamp = lampRepo.findById((long)id);
-		return (measurerRepo.deleteById(lamp.getIdMisuratore()) && lampRepo.deleteById(id));
+		try {
+			measurerRepo.deleteById((long)id);
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
 	}
 	
 }

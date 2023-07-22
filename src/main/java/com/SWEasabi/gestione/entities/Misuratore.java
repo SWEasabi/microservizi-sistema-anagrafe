@@ -1,12 +1,19 @@
 package com.SWEasabi.gestione.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="misuratore")
 public class Misuratore {
 
 	@Id
@@ -18,6 +25,42 @@ public class Misuratore {
 	private double latitudine;
 	private double longitudine;
 	
+	@OneToOne(mappedBy = "misuratore", cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Lampione lampione;
+	
+	@OneToOne(mappedBy = "misuratore", cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Sensore sensore;
+	
+	public long getIdarea() {
+		return idarea;
+	}
+
+	public void setIdarea(long idarea) {
+		this.idarea = idarea;
+	}
+
+	public Sensore getSensore() {
+		return sensore;
+	}
+
+	public void setSensore(Sensore sensore) {
+		this.sensore = sensore;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Lampione getLampione() {
+		return lampione;
+	}
+
+	public void setLampione(Lampione lampione) {
+		this.lampione = lampione;
+	}
+
 	public Misuratore()
 	{
 		this.idarea=0;

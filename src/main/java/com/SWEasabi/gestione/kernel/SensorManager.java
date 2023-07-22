@@ -31,60 +31,59 @@ public class SensorManager {
 	public JsonObject getSensor(int id)
 	{
 		Sensore sensor = sensorRepo.findById((long)id);
-		Misuratore misuratore = measurerRepo.findById(sensor.getIdMisuratore());
-		return jsonBuilder.buildSensorJson(sensor, misuratore);
+		return jsonBuilder.buildSensorJson(sensor);
 	}
-	
 	public List<JsonObject> getSensors()
 	{
-		List<Misuratore> misList = new ArrayList<Misuratore>();
-	    misList = measurerRepo.findByTipo("sensore");
-	    List<Sensore> sensorList = new ArrayList<Sensore>();
-	    for(Misuratore m : misList)
-	    {
-	    	sensorList.add(sensorRepo.findByIdmisuratore((long)m.getId()));
-	    }
+	    List<Sensore> sensorList = sensorRepo.findAll();
 	    
 	    List<JsonObject> jsonList = new ArrayList<JsonObject>();
 	    for(int i=0;i<sensorList.size();i++)
 	    {
-	    	jsonList.add(jsonBuilder.buildSensorJson(sensorList.get(i), misList.get(i)));
+	    	jsonList.add(jsonBuilder.buildSensorJson(sensorList.get(i)));
 	    }
 	    return jsonList;
 	}
 	
 	public List<JsonObject> getSensorsInArea(int idArea)
 	{
-		List<Misuratore> misList = new ArrayList<Misuratore>();
-	    misList = measurerRepo.findByTipoAndIdarea("sensore",(long)idArea);
+		List<Misuratore> misList = measurerRepo.findByTipoAndIdarea("Sensore",(long)idArea);
 	    List<Sensore> sensorList = new ArrayList<Sensore>();
 	    for(Misuratore m : misList)
 	    {
-	    	sensorList.add(sensorRepo.findByIdmisuratore((long)m.getId()));
+	    	sensorList.add(sensorRepo.findById((long)m.getId()));
 	    }
 	    
 	    List<JsonObject> jsonList = new ArrayList<JsonObject>();
 	    for(int i=0;i<sensorList.size();i++)
 	    {
-	    	jsonList.add(jsonBuilder.buildSensorJson(sensorList.get(i), misList.get(i)));
+	    	jsonList.add(jsonBuilder.buildSensorJson(sensorList.get(i)));
 	    }
 	    return jsonList;
 	}
 	
 	@Transactional
-	public boolean addSensor(int idArea, double latitudine, double longitudine, String tipo, int raggio)
+	public boolean addSensor(int idArea, double latitudine, double longitudine, String tipo, int voltaggio)
 	{
 		Misuratore mis = new Misuratore((long)idArea,tipo,latitudine,longitudine);
-		Sensore sensor = new Sensore((long)12,raggio);
+		Sensore sensor = new Sensore(voltaggio);
+		mis.setSensore(sensor);
+		sensor.setMisuratore(mis);
 		Misuratore resMis = measurerRepo.save(mis);
-		Sensore resSensor = sensorRepo.save(sensor);
-		return (resMis == null && resSensor == null) ? false : true;
+		Sensore ressensor = sensorRepo.save(sensor);
+		return (resMis == null && ressensor == null) ? false : true;
 	}
 	
 	@Transactional
 	public boolean deleteSensor(int id)
 	{
-		Sensore sensor = sensorRepo.findById((long)id);
-		return (measurerRepo.deleteById(sensor.getIdMisuratore()) && sensorRepo.deleteById(id));
+		try {
+			measurerRepo.deleteById((long)id);
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
 	}
 }

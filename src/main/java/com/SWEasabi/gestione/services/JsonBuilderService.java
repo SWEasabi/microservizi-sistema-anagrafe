@@ -7,26 +7,24 @@ import com.google.gson.JsonObject;
 
 public class JsonBuilderService {
 	
-	public JsonObject buildLampJson(Lampione lampione, Misuratore misuratore) {
+	public JsonObject buildLampJson(Lampione lampione) {
 		JsonObject json = new JsonObject();
 		json.addProperty("id", lampione.getId());
-		json.addProperty("idMisuratore", lampione.getIdMisuratore());
-		json.addProperty("idArea", misuratore.getIdArea());
+		json.addProperty("idArea", lampione.getMisuratore().getIdArea());
 		json.addProperty("voltaggio", lampione.getVoltaggio());
-		json.addProperty("latitudine", misuratore.getLatitudine());
-		json.addProperty("longitudine", misuratore.getLongitudine());
+		json.addProperty("latitudine", lampione.getMisuratore().getLatitudine());
+		json.addProperty("longitudine", lampione.getMisuratore().getLongitudine());
 		return json;
 	}
 
 
-	public JsonObject buildSensorJson(Sensore sensore, Misuratore misuratore) {
+	public JsonObject buildSensorJson(Sensore sensore) {
 		JsonObject json = new JsonObject();
 		json.addProperty("id", sensore.getId());
-		json.addProperty("idMisuratore", sensore.getIdMisuratore());
-		json.addProperty("idArea", misuratore.getIdArea());
+		json.addProperty("idArea", sensore.getMisuratore().getIdArea());
 		json.addProperty("raggio", sensore.getRaggio());
-		json.addProperty("latitudine", misuratore.getLatitudine());
-		json.addProperty("longitudine", misuratore.getLongitudine());
+		json.addProperty("latitudine", sensore.getMisuratore().getLatitudine());
+		json.addProperty("longitudine", sensore.getMisuratore().getLongitudine());
 		return json;
 	}
 }

@@ -13,5 +13,5 @@ public interface MisuratoreRepository extends CrudRepository<Misuratore, Long> {
 	public List<Misuratore> findByTipo(String tipo);
 	public List<Misuratore> findByTipoAndIdarea(String tipo,long idArea);
 	
-	public boolean deleteById(long id);
+	public void deleteById(long id);
 }

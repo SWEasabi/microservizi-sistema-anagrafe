@@ -1,45 +1,53 @@
 package com.SWEasabi.gestione.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name= "lampione")
 public class Lampione {
 
 	@Id
-	//@SequenceGenerator(name = "lampGenerator", initialValue = 7)
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idmisuratore")
 	private long id;
-	private long idmisuratore;
 	private int voltaggio;
 	
+	@OneToOne
+	@JoinColumn(name="idmisuratore")
+	@MapsId
+	private Misuratore misuratore;
+	
+	public Misuratore getMisuratore() {
+		return misuratore;
+	}
+
+	public void setMisuratore(Misuratore misuratore) {
+		this.misuratore = misuratore;
+	}
+
 	public Lampione()
 	{
-		this.idmisuratore=0;
 		this.voltaggio=0;
 	}
 	
-	public Lampione(long idmisuratore, int voltaggio)
+	public Lampione(int voltaggio)
 	{
-		this.idmisuratore=idmisuratore;
 		this.voltaggio=voltaggio;
 	}
 	
 	public long getId() {
 		return id;
 	}
-	public long getIdMisuratore() {
-		return idmisuratore;
-	}
 	public int getVoltaggio() {
 		return voltaggio;
-	}
-	
-	public void setIdMisuratore(long idMisuratore) {
-		this.idmisuratore = idMisuratore;
 	}
 	public void setVoltaggio(int voltaggio) {
 		this.voltaggio = voltaggio;
