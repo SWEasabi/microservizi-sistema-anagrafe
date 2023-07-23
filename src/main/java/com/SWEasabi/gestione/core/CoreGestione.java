@@ -2,6 +2,7 @@ package com.SWEasabi.gestione.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,14 +33,23 @@ public class CoreGestione {
 	@Autowired
 	private AreaManager areaManager;
 	
-	public JsonObject getLamp(int id)
+	@Autowired
+	private JsonBuilderService jsonBuilder;
+	
+	public Map<String,String> getLamp(int id)
 	{
-		return lampManager.getLamp(id);
+		return jsonBuilder.buildLampMap(lampManager.getLamp(id));
 	}
 	
-	public List<JsonObject> getLamps()
+	public List<Map<String,String>> getLamps()
 	{
-		return lampManager.getLamps();
+		List<Map<String,String>> map = new ArrayList<Map<String,String>>();
+		List<Lampione> lampList = lampManager.getLamps();
+		for(Lampione lamp : lampList)
+		{
+			map.add(jsonBuilder.buildLampMap(lamp));
+		}
+		return map;
 	}
 	
 	public List<JsonObject> getLampsInArea(int idArea)
