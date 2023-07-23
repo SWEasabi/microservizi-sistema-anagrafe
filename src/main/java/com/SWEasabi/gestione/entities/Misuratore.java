@@ -32,14 +32,6 @@ public class Misuratore {
 	@OneToOne(mappedBy = "misuratore", cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private Sensore sensore;
-	
-	public long getIdarea() {
-		return idarea;
-	}
-
-	public void setIdarea(long idarea) {
-		this.idarea = idarea;
-	}
 
 	public Sensore getSensore() {
 		return sensore;
@@ -103,5 +95,22 @@ public class Misuratore {
 		this.longitudine = longitudine;
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj)
+	{
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Misuratore other = (Misuratore) obj;
+        if ((this.getId() == other.getId() && this.getIdArea() == other.getIdArea() && this.getTipo() == other.getTipo() && this.getLatitudine() == other.getLatitudine() && this.getLongitudine() == other.getLongitudine())) {
+            return true;
+        }
+
+        return false;
+	}
 }

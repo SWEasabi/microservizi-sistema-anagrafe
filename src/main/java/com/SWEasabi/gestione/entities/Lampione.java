@@ -49,7 +49,29 @@ public class Lampione {
 	public int getVoltaggio() {
 		return voltaggio;
 	}
+	public void setId(long id) {
+		this.id=id;
+	}
 	public void setVoltaggio(int voltaggio) {
 		this.voltaggio = voltaggio;
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Lampione other = (Lampione) obj;
+        if (this.id == other.getId() && this.voltaggio == other.getVoltaggio() && this.misuratore.equals(other.getMisuratore())) {
+        		return true;
+        }
+
+        return false;
 	}
 }

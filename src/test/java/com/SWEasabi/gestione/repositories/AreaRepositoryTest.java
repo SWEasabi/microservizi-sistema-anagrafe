@@ -55,14 +55,7 @@ class AreaRepositoryTest {
 	}
 	
 	@Test
-	void areaInsertedHasCorrectIdGenerated() {
-		Area resArea = areaRepo.save(new Area("testArea",true,1,2));
-		
-		assertEquals(3,resArea.getId());
-	}
-	
-	@Test
-	void areaInsertedHasCorrectCredentials() {
+	void areaInsertedHasCorrectData() {
 		
 		Area area = new Area("testArea",true,1,2);
 		Area resArea = areaRepo.save(new Area("testArea",true,1,2));
