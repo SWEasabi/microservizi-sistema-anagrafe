@@ -9,5 +9,5 @@ public interface SensorRepository extends CrudRepository<Sensore, Long> {
 	public Sensore findById(long id);
 	public List<Sensore> findAll();
 	//public Sensore findByIdmisuratore(long id);
-	public boolean deleteById(long id);
+	public void deleteById(long id);
 }

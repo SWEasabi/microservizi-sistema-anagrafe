@@ -2,8 +2,6 @@ package com.SWEasabi.gestione.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
@@ -46,7 +44,30 @@ public class Sensore {
 	public int getRaggio() {
 		return raggio;
 	}
-	public void setLuminosita(int raggio) {
+	public void setId(long id)
+	{
+		this.id=id;
+	}
+	public void setRaggio(int raggio) {
 		this.raggio = raggio;
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Sensore other = (Sensore) obj;
+        if (this.id == other.getId() && this.raggio == other.getRaggio() && this.misuratore.equals(other.getMisuratore())) {
+        		return true;
+        }
+
+        return false;
 	}
 }

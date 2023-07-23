@@ -11,5 +11,5 @@ public interface LampRepository extends CrudRepository<Lampione, Long> {
 	public Lampione findById(long id);
 	public List<Lampione> findAll();
 	//public Lampione findByIdmisuratore(long id);
-	public boolean deleteById(long id);
+	public void deleteById(long id);
 }
