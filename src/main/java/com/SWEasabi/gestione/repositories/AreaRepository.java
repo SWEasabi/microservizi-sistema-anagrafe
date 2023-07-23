@@ -10,5 +10,5 @@ public interface AreaRepository extends CrudRepository<Area, Long> {
 	
 	public Area findById(long id);
 	public List<Area> findAll();
-	public boolean deleteById(long id);
+	public void deleteById(long id);
 }

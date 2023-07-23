@@ -26,7 +26,14 @@ public class AreaManager {
 	
 	public boolean deleteArea(int id)
 	{
-		return areaRepo.deleteById((long)id);
+		try {
+			areaRepo.deleteById((long)id);
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
 	}
 	
 	public boolean saveArea(String nome, boolean autoMode, int lvlInf, int lvlSup)

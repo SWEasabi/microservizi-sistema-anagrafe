@@ -33,6 +33,15 @@ public class Area {
 		this.lvlsup=sup;
 	}
 	
+	public Area(Area area)
+	{
+		this.id=area.getId();
+		this.nome=area.getNome();
+		this.automode=area.isautomode();
+		this.lvlinf=area.getlvlinf();
+		this.lvlsup=area.getlvlsup();
+	}
+	
 	@Override
 	public String toString()
 	{
@@ -41,6 +50,10 @@ public class Area {
 
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -75,7 +88,21 @@ public class Area {
 		this.lvlsup = lvlsup;
 	}
 	
-	
-	
-	
+	@Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Area other = (Area) obj;
+        if ((this.id == other.id && this.getlvlinf() == other.getlvlinf() && this.getlvlsup() == other.getlvlsup() && this.getNome() == other.getNome() && this.isautomode() == other.isautomode())) {
+            return true;
+        }
+
+        return false;
+    }
 }
