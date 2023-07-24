@@ -8,6 +8,5 @@ import com.SWEasabi.gestione.entities.Sensore;
 public interface SensorRepository extends CrudRepository<Sensore, Long> {
 	public Sensore findById(long id);
 	public List<Sensore> findAll();
-	//public Sensore findByIdmisuratore(long id);
 	public void deleteById(long id);
 }

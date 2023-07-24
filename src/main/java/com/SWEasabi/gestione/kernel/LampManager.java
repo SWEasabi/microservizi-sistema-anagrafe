@@ -40,7 +40,7 @@ public class LampManager {
 	    return lampList;
 	}
 	
-	public List<JsonObject> getLampsInArea(int idArea)
+	public List<Lampione> getLampsInArea(int idArea)
 	{
 		List<Misuratore> misList = measurerRepo.findByTipoAndIdarea("lampione",(long)idArea);
 	    List<Lampione> lampList = new ArrayList<Lampione>();
@@ -48,13 +48,7 @@ public class LampManager {
 	    {
 	    	lampList.add(lampRepo.findById((long)m.getId()));
 	    }
-	    
-	    List<JsonObject> jsonList = new ArrayList<JsonObject>();
-	    for(int i=0;i<lampList.size();i++)
-	    {
-	    	jsonList.add(jsonBuilder.buildLampJson(lampList.get(i)));
-	    }
-	    return jsonList;
+	    return lampList;
 	}
 	
 	@Transactional

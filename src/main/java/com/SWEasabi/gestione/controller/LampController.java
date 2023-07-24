@@ -49,15 +49,10 @@ public class LampController {
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("lamp/LampsInArea/{idArea}")
-	public String getLampsInArea(@PathVariable int idArea)
+	public ResponseEntity<Object> getLampsInArea(@PathVariable int idArea)
 	{
-		List<JsonObject> list = core.getLampsInArea(idArea);
-		String res = "";
-		for(JsonObject o : list)
-		{
-			res += o.toString();
-		}
-		return res;
+		List<Map<String,String>> list = core.getLampsInArea(idArea);
+		return new ResponseEntity<>(list,HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)

@@ -28,38 +28,28 @@ public class SensorManager {
 	@Autowired
 	private JsonBuilderService jsonBuilder;
 
-	public JsonObject getSensor(int id)
+	public Sensore getSensor(int id)
 	{
-		Sensore sensor = sensorRepo.findById((long)id);
-		return jsonBuilder.buildSensorJson(sensor);
+		Sensore sensore = sensorRepo.findById((long)id);
+		return sensore;
 	}
-	public List<JsonObject> getSensors()
+	public List<Sensore> getSensors()
 	{
 	    List<Sensore> sensorList = sensorRepo.findAll();
 	    
-	    List<JsonObject> jsonList = new ArrayList<JsonObject>();
-	    for(int i=0;i<sensorList.size();i++)
-	    {
-	    	jsonList.add(jsonBuilder.buildSensorJson(sensorList.get(i)));
-	    }
-	    return jsonList;
+	    return sensorList;
 	}
 	
-	public List<JsonObject> getSensorsInArea(int idArea)
+	public List<Sensore> getSensorsInArea(int idArea)
 	{
-		List<Misuratore> misList = measurerRepo.findByTipoAndIdarea("Sensore",(long)idArea);
+		List<Misuratore> misList = measurerRepo.findByTipoAndIdarea("sensore",(long)idArea);
 	    List<Sensore> sensorList = new ArrayList<Sensore>();
 	    for(Misuratore m : misList)
 	    {
 	    	sensorList.add(sensorRepo.findById((long)m.getId()));
 	    }
 	    
-	    List<JsonObject> jsonList = new ArrayList<JsonObject>();
-	    for(int i=0;i<sensorList.size();i++)
-	    {
-	    	jsonList.add(jsonBuilder.buildSensorJson(sensorList.get(i)));
-	    }
-	    return jsonList;
+	    return sensorList;
 	}
 	
 	@Transactional

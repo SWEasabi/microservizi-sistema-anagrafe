@@ -3,6 +3,7 @@ package com.SWEasabi.gestione.services;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.SWEasabi.gestione.entities.Area;
 import com.SWEasabi.gestione.entities.Lampione;
 import com.SWEasabi.gestione.entities.Misuratore;
 import com.SWEasabi.gestione.entities.Sensore;
@@ -38,6 +39,28 @@ public class JsonBuilderService {
 		data.put("latitudine", Double.toString(lamp.getMisuratore().getLatitudine()));
 		data.put("longitudine", Double.toString(lamp.getMisuratore().getLongitudine()));
 		data.put("voltaggio", Integer.toString(lamp.getVoltaggio()));
+		
+		return data;
+	}
+	
+	public Map<String,String> buildSensorMap(Sensore sensore) {
+		Map<String, String> data = new HashMap<>();
+		data.put("id", Long.toString(sensore.getId()));
+		data.put("idarea", Long.toString(sensore.getMisuratore().getIdArea()));
+		data.put("latitudine", Double.toString(sensore.getMisuratore().getLatitudine()));
+		data.put("longitudine", Double.toString(sensore.getMisuratore().getLongitudine()));
+		data.put("voltaggio", Integer.toString(sensore.getRaggio()));
+		
+		return data;
+	}
+	
+	public Map<String,String> buildAreaMap(Area area) {
+		Map<String, String> data = new HashMap<>();
+		data.put("id", Long.toString(area.getId()));
+		data.put("nome", area.getNome());
+		data.put("autoMode", Boolean.toString(area.isautomode()));
+		data.put("lvlInf", Integer.toString(area.getlvlinf()));
+		data.put("lvlSup", Integer.toString(area.getlvlsup()));
 		
 		return data;
 	}

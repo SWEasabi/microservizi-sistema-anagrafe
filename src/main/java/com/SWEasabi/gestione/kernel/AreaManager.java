@@ -1,5 +1,7 @@
 package com.SWEasabi.gestione.kernel;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.SWEasabi.gestione.entities.Area;
@@ -19,9 +21,13 @@ public class AreaManager {
 	@Autowired
 	private JsonBuilderService jsonBuilder;
 
-	public String getArea(int id)
+	public Area getArea(int id)
 	{
-		return areaRepo.findById((long) id).toString();
+		return areaRepo.findById((long) id);
+	}
+	
+	public List<Area> getAreas() {
+		return areaRepo.findAll();
 	}
 	
 	public boolean deleteArea(int id)
