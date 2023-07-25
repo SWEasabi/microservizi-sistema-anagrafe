@@ -1,6 +1,11 @@
 package com.SWEasabi.gestione.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +27,18 @@ public class AreaController {
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("/area/{id}")
-	public String getArea(@PathVariable int id)
+	public ResponseEntity<Object> getArea(@PathVariable int id)
 	{
-		return core.getArea(id);
+		Map<String,String> data = core.getArea(id);
+		return new ResponseEntity<>(data,HttpStatus.OK);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+	@GetMapping("/area/allAreas")
+	public ResponseEntity<Object> getArea()
+	{
+		List<Map<String,String>> list = core.getAreas();
+		return new ResponseEntity<>(list,HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -61,10 +75,10 @@ public class AreaController {
 		JsonObject rq = new Gson().fromJson(data, JsonObject.class);
 		int newIdArea = Integer.parseInt(rq.get("newidarea").toString());
     	int idMis = Integer.parseInt(rq.get("idmis").toString());
-    	double newX = Double.parseDouble(rq.get("newx").toString());
-    	double newY = Double.parseDouble(rq.get("newy").toString());
+    	double latitudine = Double.parseDouble(rq.get("latitudine").toString());
+    	double longitudine = Double.parseDouble(rq.get("longitudine").toString());
     	
-    	return core.moveMeasurer(newIdArea, idMis, newX, newY);
+    	return core.moveMeasurer(newIdArea, idMis, latitudine, longitudine);
 		}
 		catch(JsonSyntaxException e)
 		{

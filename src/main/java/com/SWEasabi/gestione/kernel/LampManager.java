@@ -27,26 +27,20 @@ public class LampManager {
 	@Autowired
 	private JsonBuilderService jsonBuilder;
 	
-	public JsonObject getLamp(int id)
+	public Lampione getLamp(int id)
 	{
 		Lampione lamp = lampRepo.findById(id);
 		
-		return jsonBuilder.buildLampJson(lamp);
+		return lamp;
 	}
 	
-	public List<JsonObject> getLamps()
+	public List<Lampione> getLamps()
 	{
 	    List<Lampione> lampList = lampRepo.findAll();
-	    
-	    List<JsonObject> jsonList = new ArrayList<JsonObject>();
-	    for(int i=0;i<lampList.size();i++)
-	    {
-	    	jsonList.add(jsonBuilder.buildLampJson(lampList.get(i)));
-	    }
-	    return jsonList;
+	    return lampList;
 	}
 	
-	public List<JsonObject> getLampsInArea(int idArea)
+	public List<Lampione> getLampsInArea(int idArea)
 	{
 		List<Misuratore> misList = measurerRepo.findByTipoAndIdarea("lampione",(long)idArea);
 	    List<Lampione> lampList = new ArrayList<Lampione>();
@@ -54,13 +48,7 @@ public class LampManager {
 	    {
 	    	lampList.add(lampRepo.findById((long)m.getId()));
 	    }
-	    
-	    List<JsonObject> jsonList = new ArrayList<JsonObject>();
-	    for(int i=0;i<lampList.size();i++)
-	    {
-	    	jsonList.add(jsonBuilder.buildLampJson(lampList.get(i)));
-	    }
-	    return jsonList;
+	    return lampList;
 	}
 	
 	@Transactional

@@ -2,6 +2,7 @@ package com.SWEasabi.gestione.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,19 +33,34 @@ public class CoreGestione {
 	@Autowired
 	private AreaManager areaManager;
 	
-	public JsonObject getLamp(int id)
+	@Autowired
+	private JsonBuilderService jsonBuilder;
+	
+	public Map<String,String> getLamp(int id)
 	{
-		return lampManager.getLamp(id);
+		return jsonBuilder.buildLampMap(lampManager.getLamp(id));
 	}
 	
-	public List<JsonObject> getLamps()
+	public List<Map<String,String>> getLamps()
 	{
-		return lampManager.getLamps();
+		List<Map<String,String>> map = new ArrayList<Map<String,String>>();
+		List<Lampione> lampList = lampManager.getLamps();
+		for(Lampione lamp : lampList)
+		{
+			map.add(jsonBuilder.buildLampMap(lamp));
+		}
+		return map;
 	}
 	
-	public List<JsonObject> getLampsInArea(int idArea)
+	public List<Map<String,String>> getLampsInArea(int idArea)
 	{
-		return lampManager.getLampsInArea(idArea);
+		List<Map<String,String>> map = new ArrayList<Map<String,String>>();
+		List<Lampione> lampList = lampManager.getLampsInArea(idArea);
+		for(Lampione lamp : lampList)
+		{
+			map.add(jsonBuilder.buildLampMap(lamp));
+		}
+		return map;
 	}
 	
 	public boolean addLamp(int idArea, double latitudine, double longitudine, String tipo, int voltaggio)
@@ -57,19 +73,32 @@ public class CoreGestione {
 		return lampManager.deleteLamp(id);
 	}
 	
-	public JsonObject getSensor(int id)
+	public Map<String,String> getSensor(int id)
 	{
-		return sensorManager.getSensor(id);
+		Sensore sensore = sensorManager.getSensor(id);
+		return jsonBuilder.buildSensorMap(sensore);
 	}
 	
-	public List<JsonObject> getSensors()
+	public List<Map<String,String>> getSensors()
 	{
-		return sensorManager.getSensors();
+		List<Map<String,String>> map = new ArrayList<Map<String,String>>();
+		List<Sensore> sensorList = sensorManager.getSensors();
+		for(Sensore sensore : sensorList)
+		{
+			map.add(jsonBuilder.buildSensorMap(sensore));
+		}
+		return map;
 	}
 	
-	public List<JsonObject> getSensorsInArea(int idArea)
+	public List<Map<String,String>> getSensorsInArea(int idArea)
 	{
-		return sensorManager.getSensors();
+		List<Map<String,String>> map = new ArrayList<Map<String,String>>();
+		List<Sensore> sensorList = sensorManager.getSensorsInArea(idArea);
+		for(Sensore sensore : sensorList)
+		{
+			map.add(jsonBuilder.buildSensorMap(sensore));
+		}
+		return map;
 	}
 	
 	@Transactional
@@ -84,9 +113,20 @@ public class CoreGestione {
 		return sensorManager.deleteSensor(id);
 	}
 	
-	public String getArea(int id)
+	public Map<String,String> getArea(int id)
 	{
-		return areaManager.getArea(id);
+		return jsonBuilder.buildAreaMap(areaManager.getArea(id));
+	}
+	
+	public List<Map<String,String>> getAreas()
+	{
+		List<Area> listArea = areaManager.getAreas();
+		List<Map<String,String>> map = new ArrayList<Map<String,String>>();
+		for(Area area : listArea)
+		{
+			map.add(jsonBuilder.buildAreaMap(area));
+		}
+		return map;
 	}
 	
 	public boolean deleteArea(int id)
