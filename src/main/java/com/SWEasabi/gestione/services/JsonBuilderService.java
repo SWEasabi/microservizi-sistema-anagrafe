@@ -49,7 +49,7 @@ public class JsonBuilderService {
 		data.put("idarea", Long.toString(sensore.getMisuratore().getIdArea()));
 		data.put("latitudine", Double.toString(sensore.getMisuratore().getLatitudine()));
 		data.put("longitudine", Double.toString(sensore.getMisuratore().getLongitudine()));
-		data.put("voltaggio", Integer.toString(sensore.getRaggio()));
+		data.put("raggio", Integer.toString(sensore.getRaggio()));
 		
 		return data;
 	}
