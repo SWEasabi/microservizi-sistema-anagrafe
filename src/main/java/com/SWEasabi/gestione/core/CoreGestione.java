@@ -1,24 +1,16 @@
 package com.SWEasabi.gestione.core;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.SWEasabi.gestione.entities.Area;
 import com.SWEasabi.gestione.entities.Lampione;
-import com.SWEasabi.gestione.entities.Misuratore;
 import com.SWEasabi.gestione.entities.Sensore;
 import com.SWEasabi.gestione.kernel.AreaManager;
 import com.SWEasabi.gestione.kernel.LampManager;
 import com.SWEasabi.gestione.kernel.SensorManager;
-import com.SWEasabi.gestione.repositories.AreaRepository;
-import com.SWEasabi.gestione.repositories.LampRepository;
-import com.SWEasabi.gestione.repositories.MisuratoreRepository;
-import com.SWEasabi.gestione.repositories.SensorRepository;
 import com.SWEasabi.gestione.services.JsonBuilderService;
-import com.google.gson.JsonObject;
 
 import jakarta.transaction.Transactional;
 
@@ -36,31 +28,19 @@ public class CoreGestione {
 	@Autowired
 	private JsonBuilderService jsonBuilder;
 	
-	public Map<String,String> getLamp(int id)
+	public Lampione getLamp(int id)
 	{
-		return jsonBuilder.buildLampMap(lampManager.getLamp(id));
+		return lampManager.getLamp(id);
 	}
 	
-	public List<Map<String,String>> getLamps()
+	public List<Lampione> getLamps()
 	{
-		List<Map<String,String>> map = new ArrayList<Map<String,String>>();
-		List<Lampione> lampList = lampManager.getLamps();
-		for(Lampione lamp : lampList)
-		{
-			map.add(jsonBuilder.buildLampMap(lamp));
-		}
-		return map;
+		return lampManager.getLamps();
 	}
 	
-	public List<Map<String,String>> getLampsInArea(int idArea)
+	public List<Lampione> getLampsInArea(int idArea)
 	{
-		List<Map<String,String>> map = new ArrayList<Map<String,String>>();
-		List<Lampione> lampList = lampManager.getLampsInArea(idArea);
-		for(Lampione lamp : lampList)
-		{
-			map.add(jsonBuilder.buildLampMap(lamp));
-		}
-		return map;
+		return lampManager.getLampsInArea(idArea);
 	}
 	
 	public boolean addLamp(int idArea, double latitudine, double longitudine, String tipo, int voltaggio)
@@ -73,32 +53,19 @@ public class CoreGestione {
 		return lampManager.deleteLamp(id);
 	}
 	
-	public Map<String,String> getSensor(int id)
+	public Sensore getSensor(int id)
 	{
-		Sensore sensore = sensorManager.getSensor(id);
-		return jsonBuilder.buildSensorMap(sensore);
+		return sensorManager.getSensor(id);
 	}
 	
-	public List<Map<String,String>> getSensors()
+	public List<Sensore> getSensors()
 	{
-		List<Map<String,String>> map = new ArrayList<Map<String,String>>();
-		List<Sensore> sensorList = sensorManager.getSensors();
-		for(Sensore sensore : sensorList)
-		{
-			map.add(jsonBuilder.buildSensorMap(sensore));
-		}
-		return map;
+		return sensorManager.getSensors();
 	}
 	
-	public List<Map<String,String>> getSensorsInArea(int idArea)
+	public List<Sensore> getSensorsInArea(int idArea)
 	{
-		List<Map<String,String>> map = new ArrayList<Map<String,String>>();
-		List<Sensore> sensorList = sensorManager.getSensorsInArea(idArea);
-		for(Sensore sensore : sensorList)
-		{
-			map.add(jsonBuilder.buildSensorMap(sensore));
-		}
-		return map;
+		return sensorManager.getSensorsInArea(idArea);
 	}
 	
 	@Transactional
@@ -113,20 +80,14 @@ public class CoreGestione {
 		return sensorManager.deleteSensor(id);
 	}
 	
-	public Map<String,String> getArea(int id)
+	public Area getArea(int id)
 	{
-		return jsonBuilder.buildAreaMap(areaManager.getArea(id));
+		return areaManager.getArea(id);
 	}
 	
-	public List<Map<String,String>> getAreas()
+	public List<Area> getAreas()
 	{
-		List<Area> listArea = areaManager.getAreas();
-		List<Map<String,String>> map = new ArrayList<Map<String,String>>();
-		for(Area area : listArea)
-		{
-			map.add(jsonBuilder.buildAreaMap(area));
-		}
-		return map;
+		return areaManager.getAreas();
 	}
 	
 	public boolean deleteArea(int id)
@@ -134,9 +95,9 @@ public class CoreGestione {
 		return areaManager.deleteArea(id);
 	}
 	
-	public boolean saveArea(String nome, boolean autoMode, int lvlInf, int lvlSup)
+	public boolean saveArea(Area area)
 	{
-		return areaManager.saveArea(nome, autoMode, lvlInf, lvlSup);
+		return areaManager.saveArea(area);
 	}
 	
 	public boolean moveMeasurer(int newAreaId, int misId, double newX, double newY)

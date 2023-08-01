@@ -8,7 +8,7 @@ import com.SWEasabi.gestione.entities.Area;
 
 public interface AreaRepository extends CrudRepository<Area, Long> {
 	
-	public Area findById(long id);
-	public List<Area> findAll();
-	public void deleteById(long id);
+	Area findById (long id);
+	List<Area> findAll ();
+	void deleteById (long id);
 }

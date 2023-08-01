@@ -1,11 +1,9 @@
 package com.SWEasabi.gestione.controller;
 
+import com.SWEasabi.gestione.entities.Sensore;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,26 +24,23 @@ public class SensorController {
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("sensor/{id}")
-	public ResponseEntity<Object> getsensor(@PathVariable int id)
+	public Sensore getsensor(@PathVariable int id)
 	{
-		Map<String,String> data = core.getSensor(id);
-		return new ResponseEntity<>(data, HttpStatus.OK);
+		return core.getSensor(id);
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("sensor/allSensors")
-	public ResponseEntity<Object> getAllsensors()
+	public List<Sensore> getAllsensors()
 	{
-		List<Map<String,String>> list = core.getSensors();
-		return new ResponseEntity<>(list,HttpStatus.OK);
+		return core.getSensors();
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("sensor/sensorsInArea/{idArea}")
-	public ResponseEntity<Object> getsensorsInArea(@PathVariable int idArea)
+	public List<Sensore> getsensorsInArea(@PathVariable int idArea)
 	{
-		List<Map<String,String>> list = core.getSensorsInArea(idArea);
-		return new ResponseEntity<>(list,HttpStatus.OK);
+		return core.getSensorsInArea(idArea);
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -61,9 +56,7 @@ public class SensorController {
 	    	int voltaggio = Integer.parseInt(rq.get("raggio").toString());
 	    	
 	    	return core.addSensor(idArea, latitudine, longitudine, tipo, voltaggio);
-		}
-		catch(JsonSyntaxException e)
-		{
+		} catch(JsonSyntaxException e) {
 			System.out.println("test");
 			return false;
 		}

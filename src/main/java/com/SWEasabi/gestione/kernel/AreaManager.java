@@ -18,12 +18,9 @@ public class AreaManager {
 	@Autowired
 	private MisuratoreRepository measurerRepo;
 	
-	@Autowired
-	private JsonBuilderService jsonBuilder;
-
 	public Area getArea(int id)
 	{
-		return areaRepo.findById((long) id);
+		return areaRepo.findById(id);
 	}
 	
 	public List<Area> getAreas() {
@@ -42,9 +39,9 @@ public class AreaManager {
 		}
 	}
 	
-	public boolean saveArea(String nome, boolean autoMode, int lvlInf, int lvlSup)
+	public boolean saveArea(Area area)
 	{
-		return areaRepo.save(new Area(nome,autoMode,lvlInf,lvlSup)) == null ? false : true;
+		return areaRepo.save(area) == null ? false : true;
 	}
 	
 	public boolean moveMeasurer(int newAreaId, int misId, double newX, double newY)

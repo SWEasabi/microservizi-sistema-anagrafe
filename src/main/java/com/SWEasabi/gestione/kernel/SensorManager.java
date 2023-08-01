@@ -24,51 +24,56 @@ public class SensorManager {
 	
 	@Autowired
 	private SensorRepository sensorRepo;
-	
-	@Autowired
-	private JsonBuilderService jsonBuilder;
 
 	public Sensore getSensor(int id)
 	{
-		Sensore sensore = sensorRepo.findById((long)id);
+		Sensore sensore = sensorRepo.findById(id);
 		return sensore;
 	}
 	public List<Sensore> getSensors()
 	{
-	    List<Sensore> sensorList = sensorRepo.findAll();
-	    
-	    return sensorList;
+	    return removeSensorCircularRefs(sensorRepo.findAll());
 	}
-	
+
 	public List<Sensore> getSensorsInArea(int idArea)
 	{
-		List<Misuratore> misList = measurerRepo.findByTipoAndIdarea("sensore",(long)idArea);
-	    List<Sensore> sensorList = new ArrayList<Sensore>();
+		List<Misuratore> misList = measurerRepo.findByTipoAndIdarea("sensore", idArea);
+	    List<Sensore> sensorList = new ArrayList<> ();
 	    for(Misuratore m : misList)
 	    {
-	    	sensorList.add(sensorRepo.findById((long)m.getId()));
+	    	sensorList.add(sensorRepo.findById(m.getId()));
 	    }
 	    
-	    return sensorList;
+	    return removeSensorCircularRefs(sensorList);
+	}
+
+	private List<Sensore> removeSensorCircularRefs (List<Sensore> all) {
+		return all.stream ()
+			.peek (sensor -> {
+				if (sensor.getMisuratore () != null) {
+					sensor.getMisuratore ().setSensore (null);
+				}
+			})
+			.toList ();
 	}
 	
 	@Transactional
 	public boolean addSensor(int idArea, double latitudine, double longitudine, String tipo, int voltaggio)
 	{
-		Misuratore mis = new Misuratore((long)idArea,tipo,latitudine,longitudine);
+		Misuratore mis = new Misuratore(idArea,tipo,latitudine,longitudine);
 		Sensore sensor = new Sensore(voltaggio);
 		mis.setSensore(sensor);
 		sensor.setMisuratore(mis);
 		Misuratore resMis = measurerRepo.save(mis);
 		Sensore ressensor = sensorRepo.save(sensor);
-		return (resMis == null && ressensor == null) ? false : true;
+		return resMis != null || ressensor != null;
 	}
 	
 	@Transactional
 	public boolean deleteSensor(int id)
 	{
 		try {
-			measurerRepo.deleteById((long)id);
+			measurerRepo.deleteById(id);
 			return true;
 		}
 		catch(Exception e)
