@@ -2,13 +2,10 @@ package com.SWEasabi.gestione.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,6 +16,7 @@ public class Lampione {
 	@Column(name="idmisuratore")
 	private long id;
 	private int voltaggio;
+	private int luminosita;
 	
 	@OneToOne
 	@JoinColumn(name="idmisuratore")
@@ -36,11 +34,13 @@ public class Lampione {
 	public Lampione()
 	{
 		this.voltaggio=0;
+		this.luminosita=0;
 	}
 	
-	public Lampione(int voltaggio)
+	public Lampione(int voltaggio, int luminosita)
 	{
 		this.voltaggio=voltaggio;
+		this.luminosita=luminosita;
 	}
 	
 	public long getId() {
@@ -68,10 +68,22 @@ public class Lampione {
         }
 
         final Lampione other = (Lampione) obj;
-        if (this.id == other.getId() && this.voltaggio == other.getVoltaggio() && this.misuratore.equals(other.getMisuratore())) {
+        if (this.id == other.getId() && this.voltaggio == other.getVoltaggio() 
+        		&& this.luminosita == other.getLuminosita()
+        		&& this.misuratore.equals(other.getMisuratore())) {
         		return true;
         }
 
         return false;
 	}
+
+	public int getLuminosita() {
+		return luminosita;
+	}
+
+	public void setLuminosita(int luminosita) {
+		this.luminosita = luminosita;
+	}
+	
+	
 }

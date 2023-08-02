@@ -7,12 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.SWEasabi.gestione.entities.Misuratore;
 import com.SWEasabi.gestione.entities.Sensore;
-import com.SWEasabi.gestione.repositories.AreaRepository;
-import com.SWEasabi.gestione.repositories.LampRepository;
 import com.SWEasabi.gestione.repositories.MisuratoreRepository;
 import com.SWEasabi.gestione.repositories.SensorRepository;
-import com.SWEasabi.gestione.services.JsonBuilderService;
-import com.google.gson.JsonObject;
 
 import jakarta.transaction.Transactional;
 
@@ -24,9 +20,6 @@ public class SensorManager {
 	
 	@Autowired
 	private SensorRepository sensorRepo;
-	
-	@Autowired
-	private JsonBuilderService jsonBuilder;
 
 	public Sensore getSensor(int id)
 	{

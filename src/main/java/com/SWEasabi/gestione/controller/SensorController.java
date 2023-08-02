@@ -67,6 +67,11 @@ public class SensorController {
 			System.out.println("test");
 			return false;
 		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)

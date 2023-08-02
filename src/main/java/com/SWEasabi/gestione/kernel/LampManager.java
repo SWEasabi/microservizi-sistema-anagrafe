@@ -7,12 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.SWEasabi.gestione.entities.Lampione;
 import com.SWEasabi.gestione.entities.Misuratore;
-import com.SWEasabi.gestione.repositories.AreaRepository;
 import com.SWEasabi.gestione.repositories.LampRepository;
 import com.SWEasabi.gestione.repositories.MisuratoreRepository;
-import com.SWEasabi.gestione.repositories.SensorRepository;
-import com.SWEasabi.gestione.services.JsonBuilderService;
-import com.google.gson.JsonObject;
 
 import jakarta.transaction.Transactional;
 
@@ -23,9 +19,6 @@ public class LampManager {
 	
 	@Autowired
 	private LampRepository lampRepo;
-	
-	@Autowired
-	private JsonBuilderService jsonBuilder;
 	
 	public Lampione getLamp(int id)
 	{
@@ -55,7 +48,7 @@ public class LampManager {
 	public boolean addLamp(int idArea, double latitudine, double longitudine, String tipo, int voltaggio)
 	{
 		Misuratore mis = new Misuratore((long)idArea,tipo,latitudine,longitudine);
-		Lampione lamp = new Lampione(voltaggio);
+		Lampione lamp = new Lampione(voltaggio,0);
 		mis.setLampione(lamp);
 		lamp.setMisuratore(mis);
 		Misuratore resMis = measurerRepo.save(mis);

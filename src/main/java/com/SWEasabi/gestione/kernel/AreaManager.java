@@ -8,7 +8,6 @@ import com.SWEasabi.gestione.entities.Area;
 import com.SWEasabi.gestione.entities.Misuratore;
 import com.SWEasabi.gestione.repositories.AreaRepository;
 import com.SWEasabi.gestione.repositories.MisuratoreRepository;
-import com.SWEasabi.gestione.services.JsonBuilderService;
 
 public class AreaManager {
 	
@@ -17,9 +16,6 @@ public class AreaManager {
 	
 	@Autowired
 	private MisuratoreRepository measurerRepo;
-	
-	@Autowired
-	private JsonBuilderService jsonBuilder;
 
 	public Area getArea(int id)
 	{
