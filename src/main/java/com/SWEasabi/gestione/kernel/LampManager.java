@@ -1,72 +1,72 @@
 package com.SWEasabi.gestione.kernel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.SWEasabi.gestione.entities.Lampione;
 import com.SWEasabi.gestione.entities.Misuratore;
 import com.SWEasabi.gestione.repositories.LampRepository;
 import com.SWEasabi.gestione.repositories.MisuratoreRepository;
-
 import jakarta.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class LampManager {
-	
-	@Autowired
-	private MisuratoreRepository measurerRepo;
-	
-	@Autowired
-	private LampRepository lampRepo;
-	
-	public Lampione getLamp(int id)
-	{
-		Lampione lamp = lampRepo.findById(id);
-		
-		return lamp;
-	}
-	
-	public List<Lampione> getLamps()
-	{
-	    List<Lampione> lampList = lampRepo.findAll();
-	    return lampList;
-	}
-	
-	public List<Lampione> getLampsInArea(int idArea)
-	{
-		List<Misuratore> misList = measurerRepo.findByTipoAndIdarea("lampione",(long)idArea);
-	    List<Lampione> lampList = new ArrayList<Lampione>();
-	    for(Misuratore m : misList)
-	    {
-	    	lampList.add(lampRepo.findById((long)m.getId()));
-	    }
-	    return lampList;
-	}
-	
-	@Transactional
-	public boolean addLamp(int idArea, double latitudine, double longitudine, String tipo, int voltaggio)
-	{
-		Misuratore mis = new Misuratore((long)idArea,tipo,latitudine,longitudine);
-		Lampione lamp = new Lampione(voltaggio,0);
-		mis.setLampione(lamp);
-		lamp.setMisuratore(mis);
-		Misuratore resMis = measurerRepo.save(mis);
-		Lampione resLamp = lampRepo.save(lamp);
-		return (resMis == null && resLamp == null) ? false : true;
-	}
-	
-	@Transactional
-	public boolean deleteLamp(int id)
-	{
-		try {
-			measurerRepo.deleteById((long)id);
-			return true;
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-	}
-	
+
+    @Autowired
+    private MisuratoreRepository measurerRepo;
+
+    @Autowired
+    private LampRepository lampRepo;
+
+    public Lampione getLamp (int id) {
+        Lampione lamp = lampRepo.findById (id);
+        List<Lampione> list = new ArrayList<Lampione>();
+        list.add(lamp);
+
+        list = removeLampCircularRefs(list);
+        return list.get(0);
+    }
+
+    public List<Lampione> getLamps () {
+        return removeLampCircularRefs(lampRepo.findAll ());
+    }
+
+    public List<Lampione> getLampsInArea (int idArea) {
+        List<Misuratore> misList = measurerRepo.findByTipoAndIdarea ("lampione", (long) idArea);
+        List<Lampione> lampList = new ArrayList<Lampione> ();
+        for (Misuratore m : misList) {
+            lampList.add (lampRepo.findById ((long) m.getId ()));
+        }
+        return removeLampCircularRefs(lampList);
+    }
+
+    private List<Lampione> removeLampCircularRefs (List<Lampione> all) {
+        return all.stream ()
+            .peek (sensor -> {
+                if (sensor.getMisuratore () != null) {
+                    sensor.getMisuratore ().setLampione (null);
+                }
+            })
+            .toList ();
+    }
+    @Transactional
+    public boolean addLamp (int idArea, double latitudine, double longitudine, String tipo, int voltaggio) {
+        Misuratore mis = new Misuratore (idArea, tipo, latitudine, longitudine);
+        Lampione lamp = new Lampione (voltaggio);
+        mis.setLampione (lamp);
+        lamp.setMisuratore (mis);
+        Misuratore resMis = measurerRepo.save (mis);
+        Lampione resLamp = lampRepo.save (lamp);
+        return resMis != null || resLamp != null;
+    }
+
+    @Transactional
+    public boolean deleteLamp (int id) {
+        try {
+            measurerRepo.deleteById ((long) id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

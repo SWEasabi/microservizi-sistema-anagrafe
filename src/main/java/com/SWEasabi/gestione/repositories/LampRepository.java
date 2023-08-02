@@ -8,8 +8,8 @@ import com.SWEasabi.gestione.entities.Lampione;
 
 public interface LampRepository extends CrudRepository<Lampione, Long> {
 
-	public Lampione findById(long id);
-	public List<Lampione> findAll();
+	Lampione findById (long id);
+	List<Lampione> findAll ();
 	//public Lampione findByIdmisuratore(long id);
-	public void deleteById(long id);
+    void deleteById (long id);
 }

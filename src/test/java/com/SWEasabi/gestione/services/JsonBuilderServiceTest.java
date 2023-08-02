@@ -26,7 +26,7 @@ class JsonBuilderServiceTest {
 		JsonObject json = new JsonObject();
 		json.addProperty("id", lampione.getId());
 		json.addProperty("idArea", misuratore.getIdArea());
-		json.addProperty("voltaggio", lampione.getVoltaggio());
+		json.addProperty("wattaggio", lampione.getWattaggio());
 		json.addProperty("latitudine", misuratore.getLatitudine());
 		json.addProperty("longitudine", misuratore.getLongitudine());
 		

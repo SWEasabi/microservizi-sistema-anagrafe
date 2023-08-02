@@ -15,7 +15,7 @@ public class Lampione {
 	@Id
 	@Column(name="idmisuratore")
 	private long id;
-	private int voltaggio;
+	private int wattaggio;
 	private int luminosita;
 	
 	@OneToOne
@@ -33,27 +33,27 @@ public class Lampione {
 
 	public Lampione()
 	{
-		this.voltaggio=0;
+		this.wattaggio=0;
 		this.luminosita=0;
 	}
 	
-	public Lampione(int voltaggio, int luminosita)
+	public Lampione(int wattaggio)
 	{
-		this.voltaggio=voltaggio;
-		this.luminosita=luminosita;
+		this.wattaggio=wattaggio;
+		this.luminosita=0;
 	}
 	
 	public long getId() {
 		return id;
 	}
-	public int getVoltaggio() {
-		return voltaggio;
+	public int getWattaggio() {
+		return wattaggio;
 	}
 	public void setId(long id) {
 		this.id=id;
 	}
-	public void setVoltaggio(int voltaggio) {
-		this.voltaggio = voltaggio;
+	public void setWattaggio(int wattaggio) {
+		this.wattaggio = wattaggio;
 	}
 	
 	@Override
@@ -68,7 +68,8 @@ public class Lampione {
         }
 
         final Lampione other = (Lampione) obj;
-        if (this.id == other.getId() && this.voltaggio == other.getVoltaggio() 
+        if (this.id == other.getId() 
+        		&& this.wattaggio == other.getWattaggio() 
         		&& this.luminosita == other.getLuminosita()
         		&& this.misuratore.equals(other.getMisuratore())) {
         		return true;

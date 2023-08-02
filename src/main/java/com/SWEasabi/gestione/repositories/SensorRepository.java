@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.SWEasabi.gestione.entities.Sensore;
 
 public interface SensorRepository extends CrudRepository<Sensore, Long> {
-	public Sensore findById(long id);
-	public List<Sensore> findAll();
-	public void deleteById(long id);
+	Sensore findById (long id);
+	List<Sensore> findAll ();
+	void deleteById (long id);
 }
