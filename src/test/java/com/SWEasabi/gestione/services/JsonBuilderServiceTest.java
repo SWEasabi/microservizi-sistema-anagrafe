@@ -20,7 +20,7 @@ class JsonBuilderServiceTest {
 	@Test
 	void buildLampJsonTest() {
 		Misuratore misuratore = new Misuratore(1,"lampione",10.0,20.0);
-		Lampione lampione = new Lampione(10);
+		Lampione lampione = new Lampione(10,0);
 		lampione.setMisuratore(misuratore);
 		misuratore.setLampione(lampione);
 		JsonObject json = new JsonObject();

@@ -16,7 +16,7 @@ public class AreaManager {
 	
 	@Autowired
 	private MisuratoreRepository measurerRepo;
-	
+
 	public Area getArea(int id)
 	{
 		return areaRepo.findById(id);
