@@ -23,12 +23,15 @@ public class SensorManager {
 
 	public Sensore getSensor(int id)
 	{
-		Sensore lamp = sensorRepo.findById (id);
-        List<Sensore> list = new ArrayList<Sensore>();
-        list.add(lamp);
-
-        list = removeSensorCircularRefs(list);
-        return list.get(0);
+		Sensore sensor = sensorRepo.findById (id);
+		if(sensor != null) {
+	        List<Sensore> list = new ArrayList<Sensore>();
+	        list.add(sensor);
+	
+	        list = removeSensorCircularRefs(list);
+	        return list.get(0);
+		}
+		return new Sensore();
 	}
 	public List<Sensore> getSensors()
 	{

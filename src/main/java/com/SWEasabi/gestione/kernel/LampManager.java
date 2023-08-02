@@ -19,11 +19,14 @@ public class LampManager {
 
     public Lampione getLamp (int id) {
         Lampione lamp = lampRepo.findById (id);
-        List<Lampione> list = new ArrayList<Lampione>();
-        list.add(lamp);
-
-        list = removeLampCircularRefs(list);
-        return list.get(0);
+        if(lamp != null) {
+	        List<Lampione> list = new ArrayList<Lampione>();
+	        list.add(lamp);
+	
+	        list = removeLampCircularRefs(list);
+	        return list.get(0);
+        }
+        return new Lampione();
     }
 
     public List<Lampione> getLamps () {
@@ -40,13 +43,13 @@ public class LampManager {
     }
 
     private List<Lampione> removeLampCircularRefs (List<Lampione> all) {
-        return all.stream ()
-            .peek (sensor -> {
-                if (sensor.getMisuratore () != null) {
-                    sensor.getMisuratore ().setLampione (null);
-                }
-            })
-            .toList ();
+	        return all.stream ()
+	            .peek (sensor -> {
+	                if (sensor.getMisuratore () != null) {
+	                    sensor.getMisuratore ().setLampione (null);
+	                }
+	            })
+	            .toList ();
     }
     @Transactional
     public boolean addLamp (int idArea, double latitudine, double longitudine, String tipo, int voltaggio) {

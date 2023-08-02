@@ -37,7 +37,7 @@ class LampRepositoryTest {
 	@Test
 	void MeasurerIdZeroBeforeSaveTest() {
 		Misuratore misuratore = new Misuratore(1,"lampione",1.0,2.0);
-		Lampione lampione = new Lampione(10,0);
+		Lampione lampione = new Lampione(10);
 		lampione.setMisuratore(misuratore);
 		misuratore.setLampione(lampione);
 		
@@ -47,7 +47,7 @@ class LampRepositoryTest {
 	@Test
 	void MeasurerIdNotZeroAfterSaveTest() {
 		Misuratore misuratore = new Misuratore(1,"lampione",1.0,2.0);
-		Lampione lampione = new Lampione(10,0);
+		Lampione lampione = new Lampione(10);
 		lampione.setMisuratore(misuratore);
 		misuratore.setLampione(lampione);
 		
@@ -58,7 +58,7 @@ class LampRepositoryTest {
 	@Test
 	void LampIdZeroBeforeSaveTest() {
 		Misuratore misuratore = new Misuratore(1,"lampione",1.0,2.0);
-		Lampione lampione = new Lampione(10,0);
+		Lampione lampione = new Lampione(10);
 		lampione.setMisuratore(misuratore);
 		misuratore.setLampione(lampione);
 		
@@ -68,7 +68,7 @@ class LampRepositoryTest {
 	@Test
 	void lampIdNotZeroAfterSaveTest() {
 		Misuratore misuratore = new Misuratore(1,"lampione",1.0,2.0);
-		Lampione lampione = new Lampione(10,0);
+		Lampione lampione = new Lampione(10);
 		lampione.setMisuratore(misuratore);
 		misuratore.setLampione(lampione);
 		
@@ -84,7 +84,7 @@ class LampRepositoryTest {
 	@Test
 	void ExistantLampIsNotNull (){
 		Misuratore misuratore = new Misuratore(1,"lampione",1.0,2.0);
-		Lampione lampione = new Lampione(10,0);
+		Lampione lampione = new Lampione(10);
 		lampione.setMisuratore(misuratore);
 		misuratore.setLampione(lampione);
 		
@@ -95,7 +95,7 @@ class LampRepositoryTest {
 	@Test
 	void LampInsertedHasSameIdAsMeasurer() {
 		Misuratore misuratore = new Misuratore(1,"lampione",1.0,2.0);
-		Lampione lampione = new Lampione(10,0);
+		Lampione lampione = new Lampione(10);
 		lampione.setMisuratore(misuratore);
 		misuratore.setLampione(lampione);
 		
@@ -106,7 +106,7 @@ class LampRepositoryTest {
 	@Test
 	void LampInsertedHasCorrectData() {
 		Misuratore misuratore = new Misuratore(1,"lampione",1.0,2.0);
-		Lampione lampione = new Lampione(10,0);
+		Lampione lampione = new Lampione(10);
 		lampione.setMisuratore(misuratore);
 		misuratore.setLampione(lampione);
 		
@@ -120,7 +120,7 @@ class LampRepositoryTest {
 	@Test
 	void DeletedLampIsNull() {
 		Misuratore misuratore = new Misuratore(1,"lampione",1.0,2.0);
-		Lampione lampione = new Lampione(10,0);
+		Lampione lampione = new Lampione(10);
 		lampione.setMisuratore(misuratore);
 		misuratore.setLampione(lampione);
 		
