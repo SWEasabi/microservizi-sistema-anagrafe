@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.SWEasabi.gestione.entities.Area;
 import com.SWEasabi.gestione.entities.Lampione;
-import com.SWEasabi.gestione.entities.Misuratore;
 import com.SWEasabi.gestione.entities.Sensore;
 import com.google.gson.JsonObject;
 
@@ -15,7 +14,7 @@ public class JsonBuilderService {
 		JsonObject json = new JsonObject();
 		json.addProperty("id", lampione.getId());
 		json.addProperty("idArea", lampione.getMisuratore().getIdArea());
-		json.addProperty("voltaggio", lampione.getVoltaggio());
+		json.addProperty("wattaggio", lampione.getWattaggio());
 		json.addProperty("latitudine", lampione.getMisuratore().getLatitudine());
 		json.addProperty("longitudine", lampione.getMisuratore().getLongitudine());
 		return json;
@@ -38,7 +37,7 @@ public class JsonBuilderService {
 		data.put("idarea", Long.toString(lamp.getMisuratore().getIdArea()));
 		data.put("latitudine", Double.toString(lamp.getMisuratore().getLatitudine()));
 		data.put("longitudine", Double.toString(lamp.getMisuratore().getLongitudine()));
-		data.put("voltaggio", Integer.toString(lamp.getVoltaggio()));
+		data.put("wattaggio", Integer.toString(lamp.getWattaggio()));
 		
 		return data;
 	}

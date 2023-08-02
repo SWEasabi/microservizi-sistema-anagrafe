@@ -2,7 +2,6 @@ package com.SWEasabi.gestione.kernel;
 
 import com.SWEasabi.gestione.entities.Lampione;
 import com.SWEasabi.gestione.entities.Misuratore;
-import com.SWEasabi.gestione.entities.Sensore;
 import com.SWEasabi.gestione.repositories.LampRepository;
 import com.SWEasabi.gestione.repositories.MisuratoreRepository;
 import jakarta.transaction.Transactional;
@@ -20,8 +19,11 @@ public class LampManager {
 
     public Lampione getLamp (int id) {
         Lampione lamp = lampRepo.findById (id);
+        List<Lampione> list = new ArrayList<Lampione>();
+        list.add(lamp);
 
-        return lamp;
+        list = removeLampCircularRefs(list);
+        return list.get(0);
     }
 
     public List<Lampione> getLamps () {

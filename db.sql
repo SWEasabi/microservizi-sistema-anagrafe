@@ -15,7 +15,7 @@ CREATE TABLE area (
 
 CREATE TABLE misuratore (
                             id SERIAL,
-                            idArea INT,
+                            idArea BIGINT,
                             tipo VARCHAR(10) NOT NULL,
                             latitudine real NOT NULL,
                             longitudine real NOT NULL,
@@ -24,15 +24,16 @@ CREATE TABLE misuratore (
 );
 
 CREATE TABLE sensore (
-                         idMisuratore INT NOT NULL,
+                         idMisuratore BIGINT NOT NULL,
                          raggio INT NOT NULL,
                          PRIMARY KEY(idMisuratore),
                          FOREIGN KEY (idMisuratore) REFERENCES misuratore(id)
 );
 
 CREATE TABLE lampione (
-                          idMisuratore INT NOT NULL,
-                          voltaggio INT NOT NULL,
+                          idMisuratore BIGINT NOT NULL,
+                          wattaggio INT NOT NULL,
+                          luminosita INT NOT NULL,
                           PRIMARY KEY(idMisuratore),
                           FOREIGN KEY (idMisuratore) REFERENCES misuratore(id)
 );
@@ -64,10 +65,10 @@ INSERT INTO sensore(idMisuratore,raggio) VALUES
                                              (11,84),
                                              (12,95);
 
-INSERT INTO lampione(idMisuratore,voltaggio) VALUES
-                                                 (1,45),
-                                                 (2,51),
-                                                 (5,32),
-                                                 (6,63),
-                                                 (9,84),
-                                                 (10,95);
+INSERT INTO lampione(idMisuratore,wattaggio,luminosita) VALUES
+                                                 (1,45,10),
+                                                 (2,51,10),
+                                                 (5,32,10),
+                                                 (6,63,10),
+                                                 (9,84,10),
+                                                 (10,95,10);

@@ -10,7 +10,6 @@ import com.SWEasabi.gestione.entities.Sensore;
 import com.SWEasabi.gestione.kernel.AreaManager;
 import com.SWEasabi.gestione.kernel.LampManager;
 import com.SWEasabi.gestione.kernel.SensorManager;
-import com.SWEasabi.gestione.services.JsonBuilderService;
 
 import jakarta.transaction.Transactional;
 
@@ -24,9 +23,6 @@ public class CoreGestione {
 	
 	@Autowired
 	private AreaManager areaManager;
-	
-	@Autowired
-	private JsonBuilderService jsonBuilder;
 	
 	public Lampione getLamp(int id)
 	{
