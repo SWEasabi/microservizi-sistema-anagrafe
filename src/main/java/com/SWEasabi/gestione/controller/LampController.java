@@ -31,7 +31,8 @@ public class LampController {
 	@GetMapping("lamp/allLamps")
 	public List<Lampione> getAllLamps()
 	{
-		return core.getLamps();
+		List<Lampione> lamps = core.getLamps();
+		return lamps;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -41,13 +42,13 @@ public class LampController {
 		return core.getLampsInArea(idArea);
 	}
 
-	public record LampInsertInput (int idArea, double latitudine, double longitudine, String tipo, int voltaggio) {}
+	public record LampInsertInput (int idarea, double latitudine, double longitudine, String tipo, int wattaggio) {}
 
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@PutMapping("lamp/insert")
 	public boolean addLamp(@RequestBody LampInsertInput data)
 	{
-		return core.addLamp(data.idArea(), data.latitudine(), data.longitudine(), data.tipo(), data.voltaggio());
+		return core.addLamp(data.idarea(), data.latitudine(), data.longitudine(), data.tipo(), data.wattaggio());
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)

@@ -53,9 +53,9 @@ public class SensorController {
 	    	double latitudine = Double.parseDouble(rq.get("latitudine").toString());
 	    	double longitudine = Double.parseDouble(rq.get("longitudine").toString());
 	    	String tipo = "sensore";
-	    	int voltaggio = Integer.parseInt(rq.get("raggio").toString());
+	    	int raggio = Integer.parseInt(rq.get("raggio").toString());
 	    	
-	    	return core.addSensor(idArea, latitudine, longitudine, tipo, voltaggio);
+	    	return core.addSensor(idArea, latitudine, longitudine, tipo, raggio);
 		} catch(JsonSyntaxException e) {
 			System.out.println("test");
 			return false;

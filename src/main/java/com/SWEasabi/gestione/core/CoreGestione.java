@@ -39,9 +39,9 @@ public class CoreGestione {
 		return lampManager.getLampsInArea(idArea);
 	}
 	
-	public boolean addLamp(int idArea, double latitudine, double longitudine, String tipo, int voltaggio)
+	public boolean addLamp(int idArea, double latitudine, double longitudine, String tipo, int wattaggio)
 	{
-		return lampManager.addLamp(idArea, latitudine, longitudine, tipo, voltaggio);
+		return lampManager.addLamp(idArea, latitudine, longitudine, tipo, wattaggio);
 	}
 	
 	public boolean deleteLamp(int id)
