@@ -3,7 +3,6 @@ package com.SWEasabi.gestione.controller;
 import com.SWEasabi.gestione.entities.Sensore;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +18,11 @@ import com.google.gson.JsonSyntaxException;
 @RestController
 public class SensorController {
 	
-	@Autowired
 	CoreGestione core;
+	
+	public SensorController(CoreGestione core) {
+		this.core=core;
+	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("sensor/{id}")

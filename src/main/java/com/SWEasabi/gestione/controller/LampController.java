@@ -2,7 +2,6 @@ package com.SWEasabi.gestione.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +15,11 @@ import com.SWEasabi.gestione.entities.Lampione;
 @RestController
 public class LampController {
 	
-	@Autowired
 	CoreGestione core;
+	
+	public LampController(CoreGestione core) {
+		this.core=core;
+	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	//@RequestMapping(value = "/lamp/{id}", method = RequestMethod.GET, produces="application/json")

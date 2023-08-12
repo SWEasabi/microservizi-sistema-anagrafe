@@ -2,7 +2,7 @@ package com.SWEasabi.gestione.core;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.SWEasabi.gestione.entities.Area;
 import com.SWEasabi.gestione.entities.Lampione;
@@ -13,16 +13,20 @@ import com.SWEasabi.gestione.kernel.SensorManager;
 
 import jakarta.transaction.Transactional;
 
+@Component
 public class CoreGestione {
 	
-	@Autowired
 	private LampManager lampManager;
 	
-	@Autowired
 	private SensorManager sensorManager;
 	
-	@Autowired
 	private AreaManager areaManager;
+	
+	public CoreGestione(LampManager lampManager, SensorManager sensorManager, AreaManager areaManager) {
+		this.lampManager=lampManager;
+		this.sensorManager=sensorManager;
+		this.areaManager=areaManager;
+	}
 	
 	public Lampione getLamp(int id)
 	{
