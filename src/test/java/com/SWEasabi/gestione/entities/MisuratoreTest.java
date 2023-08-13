@@ -18,14 +18,12 @@ public class MisuratoreTest {
         misuratore = new Misuratore();
 
         sensore = new Sensore();
-        misuratore_sensore = new Misuratore();
-        misuratore_sensore.setTipo("Sensore");
+        misuratore_sensore = new Misuratore(0, "Sensore", 0.0, 0.0);
         sensore.setMisuratore(misuratore_sensore);
         misuratore_sensore.setSensore(sensore);
         
         lampione = new Lampione();
-        misuratore_lampione = new Misuratore();
-        misuratore_lampione.setTipo("Lampione");
+        misuratore_lampione = new Misuratore(0, "Lampione", 0.0, 0.0);
         lampione.setMisuratore(misuratore_lampione);
         misuratore_lampione.setLampione(lampione);
 
