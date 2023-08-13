@@ -2,8 +2,6 @@ package com.SWEasabi.gestione.controller;
 
 import com.SWEasabi.gestione.entities.Area;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.SWEasabi.gestione.core.CoreGestione;
 
 @RestController
-
 public class AreaController {
 	
-	@Autowired
 	CoreGestione core;
+	
+	public AreaController(CoreGestione core) {
+		this.core=core;
+	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("/area/{id}")
@@ -42,8 +42,13 @@ public class AreaController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
-	@PutMapping("area/save")
-	public boolean saveArea(@RequestBody Area input) {
+	@PutMapping("area/save/{nome}")
+	public boolean saveArea(@PathVariable String nome) {
+		Area input = new Area();
+		input.setNome(nome);
+		input.setautomode(false);
+		input.setlvlinf(0);
+		input.setlvlsup(100);
 		return core.saveArea(input);
     }
 
