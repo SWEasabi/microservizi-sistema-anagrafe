@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import com.SWEasabi.gestione.kernel.DatabaseAreaManager;
 import com.SWEasabi.gestione.kernel.DatabaseLampManager;
 import com.SWEasabi.gestione.kernel.DatabaseSensorManager;
-import com.SWEasabi.gestione.services.JsonBuilderService;
 
 @Configuration
 public class Config {
@@ -23,10 +22,5 @@ public class Config {
 	@Bean
 	DatabaseAreaManager getAreaManager() {
 		return new DatabaseAreaManager();
-	}
-	
-	@Bean
-	JsonBuilderService getJsonBuilder() {
-		return new JsonBuilderService();
 	}
 }
