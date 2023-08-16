@@ -22,10 +22,10 @@ public class LocalLampManager implements LampManager {
 	@Override
 	public List<Lampione> getLamps() {
 		List<Lampione> list = new ArrayList<Lampione>();
-		for(int i=1;i<11;++i) {
+		for(int i=0;i<10;++i) {
 			list.add(new Lampione());
 			list.get(i).setMisuratore(new Misuratore());
-			list.get(i).setId(i);
+			list.get(i).setId(i+1);
 		}
 		return list;
 	}
@@ -33,11 +33,11 @@ public class LocalLampManager implements LampManager {
 	@Override
 	public List<Lampione> getLampsInArea(int idArea) {
 		List<Lampione> list = new ArrayList<Lampione>();
-		for(int i=1;i<11;++i) {
+		for(int i=0;i<10;++i) {
 			list.add(new Lampione());
 			list.get(i).setMisuratore(new Misuratore());
 			list.get(i).getMisuratore().setIdArea(idArea);
-			list.get(i).setId(i);
+			list.get(i).setId(i+1);
 		}
 		return list;
 	}
