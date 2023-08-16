@@ -22,10 +22,10 @@ public class LocalSensorManager implements SensorManager {
 	@Override
 	public List<Sensore> getSensors() {
 		List<Sensore> list = new ArrayList<Sensore>();
-		for(int i=1;i<11;++i) {
+		for(int i=0;i<10;++i) {
 			list.add(new Sensore());
 			list.get(i).setMisuratore(new Misuratore());
-			list.get(i).setId(i);
+			list.get(i).setId(i+1);
 		}
 		return list;
 	}
@@ -33,11 +33,11 @@ public class LocalSensorManager implements SensorManager {
 	@Override
 	public List<Sensore> getSensorsInArea(int idArea) {
 		List<Sensore> list = new ArrayList<Sensore>();
-		for(int i=1;i<11;++i) {
+		for(int i=0;i<10;++i) {
 			list.add(new Sensore());
 			list.get(i).setMisuratore(new Misuratore());
 			list.get(i).getMisuratore().setIdArea(idArea);
-			list.get(i).setId(i);
+			list.get(i).setId(i+1);
 		}
 		return list;
 	}
