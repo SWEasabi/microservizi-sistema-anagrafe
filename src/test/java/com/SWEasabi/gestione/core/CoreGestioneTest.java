@@ -19,9 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CoreGestioneTest {
     LampManager lampManager;
-
     SensorManager sensorManager;
-
     AreaManager areaManager;
     CoreGestione core;
 
