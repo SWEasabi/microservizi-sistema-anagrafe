@@ -29,7 +29,7 @@ public class AreaController {
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("/area/allAreas")
-	public List<Area> getArea()
+	public List<Area> getAreas()
 	{
 		return core.getAreas();
 	}
