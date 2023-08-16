@@ -20,9 +20,9 @@ public class LocalAreaManager implements AreaManager {
 	@Override
 	public List<Area> getAreas() {
 		List<Area> list = new ArrayList<Area>();
-		for(int i=1;i<11;++i) {
+		for(int i=0; i<10; ++i) {
 			list.add(new Area());
-			list.get(i).setId(i);
+			list.get(i).setId(i+1);
 		}
 		return list;
 	}
