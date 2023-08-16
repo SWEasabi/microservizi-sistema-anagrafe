@@ -7,7 +7,7 @@ import java.util.List;
 
 public class LocalAreaManagerTest {
 
-    private LocalAreaManager areaManager;
+    LocalAreaManager areaManager;
 
     @BeforeEach
     public void setUp() {
