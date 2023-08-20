@@ -12,18 +12,20 @@ public class MisuratoreTest {
     Misuratore misuratore_sensore;
     Lampione lampione;
     Misuratore misuratore_lampione;
+    Area area;
 
     @Before
     public void setUp() throws Exception {
+    	Area area = new Area();
         misuratore = new Misuratore();
 
         sensore = new Sensore();
-        misuratore_sensore = new Misuratore(0, "Sensore", 0.0, 0.0);
+        misuratore_sensore = new Misuratore( "Sensore", 0.0, 0.0, new Area());
         sensore.setMisuratore(misuratore_sensore);
         misuratore_sensore.setSensore(sensore);
         
         lampione = new Lampione();
-        misuratore_lampione = new Misuratore(0, "Lampione", 0.0, 0.0);
+        misuratore_lampione = new Misuratore("Lampione", 0.0, 0.0, new Area());
         lampione.setMisuratore(misuratore_lampione);
         misuratore_lampione.setLampione(lampione);
 
@@ -76,15 +78,16 @@ public class MisuratoreTest {
 
     @Test
     public void testGetIdArea() {
-        assertEquals(0, misuratore.getIdArea());
+        assertEquals(0, misuratore.getArea().getId());
     }
 
     @Test
     public void testSetIdArea() {
-        misuratore.setIdArea(1);
-        assertEquals(1, misuratore.getIdArea());
-        misuratore.setIdArea(0);
-        assertEquals(0, misuratore.getIdArea());
+    	area.setId(1);
+        misuratore.setArea(area);
+        assertEquals(1, misuratore.getArea().getId());
+        misuratore.getArea().setId(0);;
+        assertEquals(0, misuratore.getArea().getId());
     }
 
     @Test

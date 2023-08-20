@@ -44,7 +44,7 @@ public class LocalSensorManagerTest {
 
         for (Sensore sensore : sensors) {
             assertNotNull(sensore.getMisuratore());
-            assertEquals(idArea, sensore.getMisuratore().getIdArea());
+            assertEquals(idArea, sensore.getMisuratore().getArea().getId());
         }
     }
 

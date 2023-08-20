@@ -1,5 +1,6 @@
 package com.SWEasabi.gestione.controller;
 
+import com.SWEasabi.gestione.DTO.AreaDTO;
 import com.SWEasabi.gestione.core.CoreGestione;
 import com.SWEasabi.gestione.entities.Area;
 import com.SWEasabi.gestione.kernel.*;
@@ -33,9 +34,9 @@ public class AreaControllerTest {
 
     @Test
     public void testGetArea() {
-        Area result = areaController.getArea(5);
+        AreaDTO result = areaController.getArea(5);
         assertNotNull(result);
-        assertEquals(5, result.getId());
+        assertEquals(5, result.id());
 
         result = areaController.getArea(-1);
         assertNull(result);
@@ -43,12 +44,12 @@ public class AreaControllerTest {
 
     @Test
     public void testGetAreas() {
-        List<Area> areas = areaController.getAreas();
+        List<AreaDTO> areas = areaController.getAreas();
         assertNotNull(areas);
         assertEquals(10, areas.size());
 
         for (int i=0; i<10; i++) {
-            assertEquals(i+1, areas.get(i).getId());
+            assertEquals(i+1, areas.get(i).id());
         }
     }
 

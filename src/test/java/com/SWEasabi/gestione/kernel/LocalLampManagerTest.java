@@ -47,7 +47,7 @@ public class LocalLampManagerTest {
 
         for (Lampione lamp : lamps) {
             assertNotNull(lamp.getMisuratore());
-            assertEquals(idArea, lamp.getMisuratore().getIdArea());
+            assertEquals(idArea, lamp.getMisuratore().getArea().getId());
         }
     }
 

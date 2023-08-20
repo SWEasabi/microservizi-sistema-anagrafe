@@ -1,5 +1,6 @@
 package com.SWEasabi.gestione.controller;
 
+import com.SWEasabi.gestione.DTO.SensorDTO;
 import com.SWEasabi.gestione.core.CoreGestione;
 import com.SWEasabi.gestione.entities.Sensore;
 import com.SWEasabi.gestione.kernel.*;
@@ -33,9 +34,8 @@ public class SensorControllerTest {
 
     @Test
     public void testGetSensor() {
-        Sensore sensore = sensorController.getsensor(1);
+        SensorDTO sensore = sensorController.getsensor(1);
         assertNotNull(sensore);
-        assertNotNull(sensore.getMisuratore());
 
         sensore = sensorController.getsensor(-1);
         assertNull(sensore);
@@ -43,25 +43,23 @@ public class SensorControllerTest {
 
     @Test
     public void testGetSensors() {
-        List<Sensore> sensors = sensorController.getAllsensors();
+        List<SensorDTO> sensors = sensorController.getAllsensors();
         assertEquals(10, sensors.size());
 
         for (int i=0; i<10; i++) {
-            assertNotNull(sensors.get(i).getMisuratore());
-            assertEquals(i+1, sensors.get(i).getId());
+            assertEquals(i+1, sensors.get(i).id());
         }
     }
 
     @Test
     public void testGetSensorsInArea() {
         int idArea = 1;
-        List<Sensore> sensors = sensorController.getsensorsInArea(idArea);
+        List<SensorDTO> sensors = sensorController.getsensorsInArea(idArea);
         assertNotNull(sensors);
         assertEquals(10, sensors.size());
 
-        for (Sensore sensore : sensors) {
-            assertNotNull(sensore.getMisuratore());
-            assertEquals(idArea, sensore.getMisuratore().getIdArea());
+        for (SensorDTO sensore : sensors) {
+            assertEquals(idArea, sensore.idArea());
         }
     }
 

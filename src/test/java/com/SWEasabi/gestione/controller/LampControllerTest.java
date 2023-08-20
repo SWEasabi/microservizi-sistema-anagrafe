@@ -1,5 +1,6 @@
 package com.SWEasabi.gestione.controller;
 
+import com.SWEasabi.gestione.DTO.LampDTO;
 import com.SWEasabi.gestione.core.CoreGestione;
 import com.SWEasabi.gestione.entities.Lampione;
 import com.SWEasabi.gestione.kernel.*;
@@ -33,9 +34,8 @@ public class LampControllerTest {
 
     @Test
     public void testGetLamp() {
-        Lampione result = lampController.getLamp(5);
+        LampDTO result = lampController.getLamp(5);
         assertNotNull(result);
-        assertNotNull(result.getMisuratore());
 
         result = lampController.getLamp(-1);
         assertNull(result);
@@ -43,26 +43,25 @@ public class LampControllerTest {
 
     @Test
     public void testGetLamps() {
-        List<Lampione> lamps = lampController.getAllLamps();
+        List<LampDTO> lamps = lampController.getAllLamps();
         assertNotNull(lamps);
         assertEquals(10, lamps.size());
 
         for (int i=0; i<10; i++) {
-            assertNotNull(lamps.get(i).getMisuratore());
-            assertEquals(i+1, lamps.get(i).getId());
+            assertNotNull(lamps.get(i));
+            assertEquals(i+1, lamps.get(i).id());
         }
     }
 
     @Test
     public void testGetLampsInArea() {
         int idArea = 2;
-        List<Lampione> lamps = lampController.getLampsInArea(idArea);
+        List<LampDTO> lamps = lampController.getLampsInArea(idArea);
         assertNotNull(lamps);
         assertEquals(10, lamps.size());
 
-        for (Lampione lamp : lamps) {
-            assertNotNull(lamp.getMisuratore());
-            assertEquals(idArea, lamp.getMisuratore().getIdArea());
+        for (LampDTO lamp : lamps) {
+            assertEquals(idArea, lamp.idArea());
         }
     }
 

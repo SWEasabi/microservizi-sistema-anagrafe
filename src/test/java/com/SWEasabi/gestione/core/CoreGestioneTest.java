@@ -62,7 +62,7 @@ public class CoreGestioneTest {
 
         for (Lampione lamp : lamps) {
             assertNotNull(lamp.getMisuratore());
-            assertEquals(idArea, lamp.getMisuratore().getIdArea());
+            assertEquals(idArea, lamp.getMisuratore().getArea().getId());
         }
     }
 
@@ -110,7 +110,7 @@ public class CoreGestioneTest {
 
         for (Sensore sensore : sensors) {
             assertNotNull(sensore.getMisuratore());
-            assertEquals(idArea, sensore.getMisuratore().getIdArea());
+            assertEquals(idArea, sensore.getMisuratore().getArea().getId());
         }
     }
 
