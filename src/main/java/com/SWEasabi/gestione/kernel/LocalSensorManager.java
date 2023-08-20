@@ -14,7 +14,9 @@ public class LocalSensorManager implements SensorManager {
 		if(id>0) {
 			Sensore sensore = new Sensore();
 			Misuratore mis = new Misuratore();
+			Area area = new Area();
 			sensore.setMisuratore(mis);
+			sensore.getMisuratore().setArea(area);
 			return sensore;
 		}
 		return null;
@@ -25,7 +27,10 @@ public class LocalSensorManager implements SensorManager {
 		List<Sensore> list = new ArrayList<Sensore>();
 		for(int i=0;i<10;++i) {
 			list.add(new Sensore());
-			list.get(i).setMisuratore(new Misuratore());
+			Area area = new Area();
+			Misuratore mis = new Misuratore();
+			list.get(i).setMisuratore(mis);
+			list.get(i).getMisuratore().setArea(area);
 			list.get(i).setId(i+1);
 		}
 		return list;

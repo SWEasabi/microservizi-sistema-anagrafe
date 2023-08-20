@@ -15,8 +15,8 @@ public class LocalLampManager implements LampManager {
 			Lampione lamp = new Lampione();
 			Misuratore mis = new Misuratore();
 			Area area = new Area();
-			mis.setArea(area);
 			lamp.setMisuratore(mis);
+			lamp.getMisuratore().setArea(area);
 			return lamp;
 		}
 		return null;

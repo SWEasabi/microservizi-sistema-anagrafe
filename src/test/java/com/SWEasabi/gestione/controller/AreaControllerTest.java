@@ -41,7 +41,7 @@ public class AreaControllerTest {
         result = areaController.getArea(-1);
         assertNull(result);
     }
-
+    
     @Test
     public void testGetAreas() {
         List<AreaDTO> areas = areaController.getAreas();

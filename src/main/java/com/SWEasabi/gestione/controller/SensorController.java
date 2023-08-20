@@ -32,11 +32,14 @@ public class SensorController {
 	public SensorDTO getsensor(@PathVariable int id)
 	{
 		Sensore sensore =  core.getSensor(id);
-		return new SensorDTO(sensore.getId(),
-				sensore.getMisuratore().getArea().getId(),
-				sensore.getMisuratore().getLatitudine(),
-				sensore.getMisuratore().getLongitudine(),
-				sensore.getRaggio());
+		if(sensore != null) {
+			return new SensorDTO(sensore.getId(),
+					sensore.getMisuratore().getArea().getId(),
+					sensore.getMisuratore().getLatitudine(),
+					sensore.getMisuratore().getLongitudine(),
+					sensore.getRaggio());
+		}
+		return null;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)

@@ -29,12 +29,15 @@ public class LampController {
 	public LampDTO getLamp(@PathVariable int id)
 	{
 		Lampione lamp =  core.getLamp(id);
-		return new LampDTO(lamp.getId(),
-				lamp.getMisuratore().getArea().getId(),
-				lamp.getMisuratore().getLatitudine(),
-				lamp.getMisuratore().getLongitudine(),
-				lamp.getWattaggio(),
-				lamp.getLuminosita());
+		if(lamp != null) {
+			return new LampDTO(lamp.getId(),
+					lamp.getMisuratore().getArea().getId(),
+					lamp.getMisuratore().getLatitudine(),
+					lamp.getMisuratore().getLongitudine(),
+					lamp.getWattaggio(),
+					lamp.getLuminosita());
+		}
+		return null;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)

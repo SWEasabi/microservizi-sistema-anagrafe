@@ -28,11 +28,14 @@ public class AreaController {
 	public AreaDTO getArea(@PathVariable int id)
 	{
 		Area area = core.getArea(id);
+		if(area != null) {
 		return new AreaDTO(area.getId(),
 				area.getNome(),
 				area.isautomode(),
 				area.getlvlinf(),
 				area.getlvlsup());
+		}
+		return null;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
