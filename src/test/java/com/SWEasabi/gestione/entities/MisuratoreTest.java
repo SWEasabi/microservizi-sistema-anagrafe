@@ -16,7 +16,7 @@ public class MisuratoreTest {
 
     @Before
     public void setUp() throws Exception {
-    	Area area = new Area();
+    	area = new Area();
         misuratore = new Misuratore();
 
         sensore = new Sensore();
