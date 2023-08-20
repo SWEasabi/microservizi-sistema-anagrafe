@@ -78,6 +78,7 @@ public class MisuratoreTest {
 
     @Test
     public void testGetIdArea() {
+    	misuratore.setArea(area);
         assertEquals(0, misuratore.getArea().getId());
     }
 
