@@ -1,6 +1,8 @@
 package com.SWEasabi.gestione.controller;
 
 import com.SWEasabi.gestione.entities.Sensore;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.SWEasabi.gestione.DTO.SensorDTO;
 import com.SWEasabi.gestione.core.CoreGestione;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -26,23 +29,48 @@ public class SensorController {
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("sensor/{id}")
-	public Sensore getsensor(@PathVariable int id)
+	public SensorDTO getsensor(@PathVariable int id)
 	{
-		return core.getSensor(id);
+		Sensore sensore =  core.getSensor(id);
+		return new SensorDTO(sensore.getId(),
+				sensore.getMisuratore().getArea().getId(),
+				sensore.getMisuratore().getLatitudine(),
+				sensore.getMisuratore().getLongitudine(),
+				sensore.getRaggio());
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("sensor/allSensors")
-	public List<Sensore> getAllsensors()
+	public List<SensorDTO> getAllsensors()
 	{
-		return core.getSensors();
+		List<Sensore> sensors = core.getSensors();
+		List<SensorDTO> dtoList = new ArrayList<SensorDTO>();
+		for(Sensore sensore : sensors) {
+			SensorDTO dto = new SensorDTO(sensore.getId(),
+					sensore.getMisuratore().getArea().getId(),
+					sensore.getMisuratore().getLatitudine(),
+					sensore.getMisuratore().getLongitudine(),
+					sensore.getRaggio());
+			dtoList.add(dto);
+		}
+		return dtoList;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("sensor/sensorsInArea/{idArea}")
-	public List<Sensore> getsensorsInArea(@PathVariable int idArea)
+	public List<SensorDTO> getsensorsInArea(@PathVariable int idArea)
 	{
-		return core.getSensorsInArea(idArea);
+		List<Sensore> sensors = core.getSensorsInArea(idArea);
+		List<SensorDTO> dtoList = new ArrayList<SensorDTO>();
+		for(Sensore sensore : sensors) {
+			SensorDTO dto = new SensorDTO(sensore.getId(),
+					sensore.getMisuratore().getArea().getId(),
+					sensore.getMisuratore().getLatitudine(),
+					sensore.getMisuratore().getLongitudine(),
+					sensore.getRaggio());
+			dtoList.add(dto);
+		}
+		return dtoList;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)

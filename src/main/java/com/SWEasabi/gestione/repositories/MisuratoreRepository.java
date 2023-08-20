@@ -9,9 +9,9 @@ import com.SWEasabi.gestione.entities.Misuratore;
 public interface MisuratoreRepository extends CrudRepository<Misuratore, Long> {
 	
 	Misuratore findById (long id);
-	List<Misuratore> findByIdarea (long idArea);
+	List<Misuratore> findByArea_id (long idArea);
 	List<Misuratore> findByTipo (String tipo);
-	List<Misuratore> findByTipoAndIdarea (String tipo, long idArea);
+	List<Misuratore> findByTipoAndArea_id (String tipo, long idArea);
 	
 	void deleteById (long id);
 }

@@ -1,9 +1,12 @@
 package com.SWEasabi.gestione.entities;
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Area {
@@ -17,11 +20,15 @@ public class Area {
 	private int lvlinf;
 	private int lvlsup;
 	
+	@OneToMany(mappedBy="area")
+	private Set<Misuratore> misList;
+	
 	public Area() {
 		this.nome="test";
 		this.automode=false;
 		this.lvlinf=0;
 		this.lvlsup=0;
+		this.misList=null;
 	}
 	
 	public Area(String nome, boolean auto, int inf, int sup)
@@ -87,6 +94,14 @@ public class Area {
 		this.lvlsup = lvlsup;
 	}
 	
+	public Set<Misuratore> getMisList() {
+		return misList;
+	}
+
+	public void setMisList(Set<Misuratore> misList) {
+		this.misList = misList;
+	}
+
 	@Override
     public boolean equals(Object obj) {
         if (obj == null) {

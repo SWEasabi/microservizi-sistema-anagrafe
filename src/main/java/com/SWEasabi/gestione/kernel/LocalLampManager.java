@@ -3,6 +3,7 @@ package com.SWEasabi.gestione.kernel;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.SWEasabi.gestione.entities.Area;
 import com.SWEasabi.gestione.entities.Lampione;
 import com.SWEasabi.gestione.entities.Misuratore;
 
@@ -36,7 +37,9 @@ public class LocalLampManager implements LampManager {
 		for(int i=0;i<10;++i) {
 			list.add(new Lampione());
 			list.get(i).setMisuratore(new Misuratore());
-			list.get(i).getMisuratore().setIdArea(idArea);
+			Area area = new Area();
+			area.setId(idArea);
+			list.get(i).getMisuratore().setArea(area);
 			list.get(i).setId(i+1);
 		}
 		return list;

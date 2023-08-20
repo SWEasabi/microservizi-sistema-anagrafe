@@ -46,7 +46,8 @@ public class DatabaseAreaManager implements AreaManager {
 	public boolean moveMeasurer(int newAreaId, int misId, double newX, double newY)
 	{
 		Misuratore measurer = measurerRepo.findById((long)misId);
-		measurer.setIdArea(newAreaId);
+		Area area = areaRepo.findById(newAreaId);
+		measurer.setArea(area);
 		measurer.setLongitudine(newX);
 		measurer.setLatitudine(newY);
 		return (measurerRepo.save(measurer)) == null ? false : true;

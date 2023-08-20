@@ -1,7 +1,9 @@
 package com.SWEasabi.gestione.kernel;
 
+import com.SWEasabi.gestione.entities.Area;
 import com.SWEasabi.gestione.entities.Lampione;
 import com.SWEasabi.gestione.entities.Misuratore;
+import com.SWEasabi.gestione.repositories.AreaRepository;
 import com.SWEasabi.gestione.repositories.LampRepository;
 import com.SWEasabi.gestione.repositories.MisuratoreRepository;
 import jakarta.transaction.Transactional;
@@ -16,33 +18,32 @@ public class DatabaseLampManager implements LampManager {
 
     @Autowired
     private LampRepository lampRepo;
+    
+    @Autowired
+    private AreaRepository areaRepo;
 
     public Lampione getLamp (int id) {
         Lampione lamp = lampRepo.findById (id);
         if(lamp != null) {
-	        List<Lampione> list = new ArrayList<Lampione>();
-	        list.add(lamp);
-	
-	        list = removeLampCircularRefs(list);
-	        return list.get(0);
+        	return lamp;
         }
         return new Lampione();
     }
 
     public List<Lampione> getLamps () {
-        return removeLampCircularRefs(lampRepo.findAll ());
+        return lampRepo.findAll ();
     }
 
     public List<Lampione> getLampsInArea (int idArea) {
-        List<Misuratore> misList = measurerRepo.findByTipoAndIdarea ("lampione", (long) idArea);
+        List<Misuratore> misList = measurerRepo.findByTipoAndArea_id ("lampione", (long) idArea);
         List<Lampione> lampList = new ArrayList<Lampione> ();
         for (Misuratore m : misList) {
             lampList.add (lampRepo.findById ((long) m.getId ()));
         }
-        return removeLampCircularRefs(lampList);
+        return lampList;
     }
 
-    private List<Lampione> removeLampCircularRefs (List<Lampione> all) {
+    /*private List<Lampione> removeLampCircularRefs (List<Lampione> all) {
 	        return all.stream ()
 	            .peek (sensor -> {
 	                if (sensor.getMisuratore () != null) {
@@ -50,14 +51,14 @@ public class DatabaseLampManager implements LampManager {
 	                }
 	            })
 	            .toList ();
-    }
+    }*/
     @Transactional
     public boolean addLamp (int idArea, double latitudine, double longitudine, String tipo, int voltaggio) {
-        Misuratore mis = new Misuratore (idArea, tipo, latitudine, longitudine);
+        Area area = areaRepo.findById(idArea);
+    	Misuratore mis = new Misuratore (tipo, latitudine, longitudine,area);
         Lampione lamp = new Lampione (voltaggio);
-        mis.setLampione (lamp);
-        lamp.setMisuratore (mis);
         Misuratore resMis = measurerRepo.save (mis);
+        lamp.setMisuratore (resMis);
         Lampione resLamp = lampRepo.save (lamp);
         return resMis != null || resLamp != null;
     }

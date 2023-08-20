@@ -5,8 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.SWEasabi.gestione.entities.Area;
+import com.SWEasabi.gestione.entities.Lampione;
 import com.SWEasabi.gestione.entities.Misuratore;
 import com.SWEasabi.gestione.entities.Sensore;
+import com.SWEasabi.gestione.repositories.AreaRepository;
 import com.SWEasabi.gestione.repositories.MisuratoreRepository;
 import com.SWEasabi.gestione.repositories.SensorRepository;
 
@@ -20,37 +23,36 @@ public class DatabaseSensorManager implements SensorManager {
 	
 	@Autowired
 	private SensorRepository sensorRepo;
+	
+	@Autowired
+    private AreaRepository areaRepo;
 
 	public Sensore getSensor(int id)
 	{
 		Sensore sensor = sensorRepo.findById (id);
 		if(sensor != null) {
-	        List<Sensore> list = new ArrayList<Sensore>();
-	        list.add(sensor);
-	
-	        list = removeSensorCircularRefs(list);
-	        return list.get(0);
+			return sensor;
 		}
 		return new Sensore();
 	}
 	public List<Sensore> getSensors()
 	{
-	    return removeSensorCircularRefs(sensorRepo.findAll());
+	    return sensorRepo.findAll();
 	}
 
 	public List<Sensore> getSensorsInArea(int idArea)
 	{
-		List<Misuratore> misList = measurerRepo.findByTipoAndIdarea("sensore", idArea);
+		List<Misuratore> misList = measurerRepo.findByTipoAndArea_id("sensore", idArea);
 	    List<Sensore> sensorList = new ArrayList<> ();
 	    for(Misuratore m : misList)
 	    {
 	    	sensorList.add(sensorRepo.findById(m.getId()));
 	    }
 	    
-	    return removeSensorCircularRefs(sensorList);
+	    return sensorList;
 	}
 
-	private List<Sensore> removeSensorCircularRefs (List<Sensore> all) {
+	/*private List<Sensore> removeSensorCircularRefs (List<Sensore> all) {
 		return all.stream ()
 			.peek (sensor -> {
 				if (sensor.getMisuratore () != null) {
@@ -58,18 +60,18 @@ public class DatabaseSensorManager implements SensorManager {
 				}
 			})
 			.toList ();
-	}
+	}*/
 	
 	@Transactional
-	public boolean addSensor(int idArea, double latitudine, double longitudine, String tipo, int voltaggio)
+	public boolean addSensor(int idArea, double latitudine, double longitudine, String tipo, int raggio)
 	{
-		Misuratore mis = new Misuratore(idArea,tipo,latitudine,longitudine);
-		Sensore sensor = new Sensore(voltaggio);
-		mis.setSensore(sensor);
-		sensor.setMisuratore(mis);
+		Area area = areaRepo.findById(idArea);
+		Misuratore mis = new Misuratore(tipo,latitudine,longitudine,area);
+		Sensore sensor = new Sensore(raggio);
 		Misuratore resMis = measurerRepo.save(mis);
-		Sensore ressensor = sensorRepo.save(sensor);
-		return resMis != null || ressensor != null;
+		sensor.setMisuratore(resMis);
+		Sensore resSensor = sensorRepo.save(sensor);
+		return resMis != null || resSensor != null;
 	}
 	
 	@Transactional

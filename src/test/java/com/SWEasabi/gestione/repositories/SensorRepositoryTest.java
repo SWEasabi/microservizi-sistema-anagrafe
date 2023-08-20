@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.SWEasabi.gestione.entities.Sensore;
+import com.SWEasabi.gestione.entities.Area;
 import com.SWEasabi.gestione.entities.Misuratore;
 
 @ExtendWith(SpringExtension.class)
@@ -35,7 +36,7 @@ class SensorRepositoryTest {
 	
 	@Test
 	void MeasurerIdZeroBeforeSaveTest() {
-		Misuratore misuratore = new Misuratore(1,"Sensore",1.0,2.0);
+		Misuratore misuratore = new Misuratore("Sensore",1.0,2.0, new Area());
 		Sensore sensore = new Sensore(10);
 		sensore.setMisuratore(misuratore);
 		misuratore.setSensore(sensore);
@@ -45,7 +46,7 @@ class SensorRepositoryTest {
 	
 	@Test
 	void MeasurerIdNotZeroAfterSaveTest() {
-		Misuratore misuratore = new Misuratore(1,"Sensore",1.0,2.0);
+		Misuratore misuratore = new Misuratore("Sensore",1.0,2.0, new Area());
 		Sensore sensore = new Sensore(10);
 		sensore.setMisuratore(misuratore);
 		misuratore.setSensore(sensore);
@@ -56,7 +57,7 @@ class SensorRepositoryTest {
 	
 	@Test
 	void sensorIdZeroBeforeSaveTest() {
-		Misuratore misuratore = new Misuratore(1,"Sensore",1.0,2.0);
+		Misuratore misuratore = new Misuratore("Sensore",1.0,2.0, new Area());
 		Sensore sensore = new Sensore(10);
 		sensore.setMisuratore(misuratore);
 		misuratore.setSensore(sensore);
@@ -66,7 +67,7 @@ class SensorRepositoryTest {
 	
 	@Test
 	void sensorIdNotZeroAfterSaveTest() {
-		Misuratore misuratore = new Misuratore(1,"Sensore",1.0,2.0);
+		Misuratore misuratore = new Misuratore("Sensore",1.0,2.0, new Area());
 		Sensore sensore = new Sensore(10);
 		sensore.setMisuratore(misuratore);
 		misuratore.setSensore(sensore);
@@ -82,7 +83,7 @@ class SensorRepositoryTest {
 	
 	@Test
 	void ExistantsensorIsNotNull (){
-		Misuratore misuratore = new Misuratore(1,"Sensore",1.0,2.0);
+		Misuratore misuratore = new Misuratore("Sensore",1.0,2.0, new Area());
 		Sensore sensore = new Sensore(10);
 		sensore.setMisuratore(misuratore);
 		misuratore.setSensore(sensore);
@@ -93,7 +94,7 @@ class SensorRepositoryTest {
 	
 	@Test
 	void sensorInsertedHasSameIdAsMeasurer() {
-		Misuratore misuratore = new Misuratore(1,"Sensore",1.0,2.0);
+		Misuratore misuratore = new Misuratore("Sensore",1.0,2.0, new Area());
 		Sensore sensore = new Sensore(10);
 		sensore.setMisuratore(misuratore);
 		misuratore.setSensore(sensore);
@@ -104,7 +105,7 @@ class SensorRepositoryTest {
 	
 	@Test
 	void sensorInsertedHasCorrectData() {
-		Misuratore misuratore = new Misuratore(1,"Sensore",1.0,2.0);
+		Misuratore misuratore = new Misuratore("Sensore",1.0,2.0, new Area());
 		Sensore sensore = new Sensore(10);
 		sensore.setMisuratore(misuratore);
 		misuratore.setSensore(sensore);
@@ -118,7 +119,7 @@ class SensorRepositoryTest {
 	
 	@Test
 	void DeletedsensorIsNull() {
-		Misuratore misuratore = new Misuratore(1,"sensore",1.0,2.0);
+		Misuratore misuratore = new Misuratore("sensore",1.0,2.0, new Area());
 		Sensore sensore = new Sensore(10);
 		sensore.setMisuratore(misuratore);
 		misuratore.setSensore(sensore);

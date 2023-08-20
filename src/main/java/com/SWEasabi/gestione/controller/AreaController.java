@@ -1,6 +1,8 @@
 package com.SWEasabi.gestione.controller;
 
 import com.SWEasabi.gestione.entities.Area;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.SWEasabi.gestione.DTO.AreaDTO;
 import com.SWEasabi.gestione.core.CoreGestione;
 
 @RestController
@@ -22,16 +25,31 @@ public class AreaController {
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("/area/{id}")
-	public Area getArea(@PathVariable int id)
+	public AreaDTO getArea(@PathVariable int id)
 	{
-		return core.getArea(id);
+		Area area = core.getArea(id);
+		return new AreaDTO(area.getId(),
+				area.getNome(),
+				area.isautomode(),
+				area.getlvlinf(),
+				area.getlvlsup());
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@GetMapping("/area/allAreas")
-	public List<Area> getAreas()
+	public List<AreaDTO> getAreas()
 	{
-		return core.getAreas();
+		List<Area> areaList = core.getAreas();
+		List<AreaDTO> dtoList = new ArrayList<AreaDTO>();
+		for(Area area : areaList) {
+			AreaDTO dto = new AreaDTO(area.getId(),
+					area.getNome(),
+					area.isautomode(),
+					area.getlvlinf(),
+					area.getlvlsup());
+			dtoList.add(dto);
+		}
+		return dtoList;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)

@@ -3,9 +3,9 @@ package com.SWEasabi.gestione.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,7 +19,7 @@ public class Lampione {
 	private int luminosita;
 	
 	@OneToOne
-	@JoinColumn(name="idmisuratore")
+	@PrimaryKeyJoinColumn
 	@MapsId
 	private Misuratore misuratore;
 	

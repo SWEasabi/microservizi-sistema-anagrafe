@@ -5,8 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,18 +18,19 @@ public class Misuratore {
 	//@SequenceGenerator(name = "measurerGenerator", initialValue = 13)
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	private long idarea;
 	private String tipo;
 	private double latitudine;
 	private double longitudine;
 	
 	@OneToOne(mappedBy = "misuratore", cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
 	private Lampione lampione;
 	
-	@OneToOne(mappedBy = "misuratore", cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
+	@OneToOne(mappedBy="misuratore")
 	private Sensore sensore;
+	
+	@ManyToOne
+	@JoinColumn(name="area_id")
+	private Area area;
 
 	public Sensore getSensore() {
 		return sensore;
@@ -52,23 +54,20 @@ public class Misuratore {
 
 	public Misuratore()
 	{
-		this.idarea=0;
 		this.tipo="";
 		this.latitudine=0.0;
 		this.longitudine=0.0;
+		this.area=null;
 	}
 	
-	public Misuratore(long idarea, String tipo, double latitudine, double longitudine) {
-		this.idarea = idarea;
+	public Misuratore(String tipo, double latitudine, double longitudine, Area area) {
 		this.tipo = tipo;
 		this.latitudine = latitudine;
 		this.longitudine = longitudine;
+		this.area=area;
 	}
 	public long getId() {
 		return id;
-	}
-	public long getIdArea() {
-		return idarea;
 	}
 	public String getTipo() {
 		return tipo;
@@ -79,9 +78,6 @@ public class Misuratore {
 	public double getLongitudine() {
 		return longitudine;
 	}
-	public void setIdArea(long idArea) {
-		this.idarea = idArea;
-	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
@@ -91,7 +87,13 @@ public class Misuratore {
 	public void setLongitudine(double longitudine) {
 		this.longitudine = longitudine;
 	}
-	
+	public Area getArea() {
+		return area;
+	}
+	public void setArea(Area area) {
+		this.area = area;
+	}
+
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -104,7 +106,7 @@ public class Misuratore {
         }
 
         final Misuratore other = (Misuratore) obj;
-        if ((this.getId() == other.getId() && this.getIdArea() == other.getIdArea() && this.getTipo() == other.getTipo() && this.getLatitudine() == other.getLatitudine() && this.getLongitudine() == other.getLongitudine())) {
+        if ((this.getId() == other.getId() && this.getArea() == other.getArea() && this.getTipo() == other.getTipo() && this.getLatitudine() == other.getLatitudine() && this.getLongitudine() == other.getLongitudine())) {
             return true;
         }
 
