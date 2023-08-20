@@ -14,6 +14,8 @@ public class LocalLampManager implements LampManager {
 		if(id>0) {
 			Lampione lamp = new Lampione();
 			Misuratore mis = new Misuratore();
+			Area area = new Area();
+			mis.setArea(area);
 			lamp.setMisuratore(mis);
 			return lamp;
 		}
@@ -24,8 +26,11 @@ public class LocalLampManager implements LampManager {
 	public List<Lampione> getLamps() {
 		List<Lampione> list = new ArrayList<Lampione>();
 		for(int i=0;i<10;++i) {
+			Misuratore mis = new Misuratore();
+			Area area = new Area();
 			list.add(new Lampione());
-			list.get(i).setMisuratore(new Misuratore());
+			list.get(i).setMisuratore(mis);
+			list.get(i).getMisuratore().setArea(area);
 			list.get(i).setId(i+1);
 		}
 		return list;
